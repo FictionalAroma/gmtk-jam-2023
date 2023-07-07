@@ -16,7 +16,7 @@ public class InputTest : MonoBehaviour
     private void HandleMove(Vector2 moveVector)
     {
         Debug.Log(moveVector);
-        this.gameObject.transform.Translate(moveVector*Time.deltaTime*playerspeed);
+        
     }
     
     private void HandlePrimaryFire(bool shoot)
