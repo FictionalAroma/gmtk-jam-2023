@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class InputTest : MonoBehaviour
 {
@@ -7,16 +8,23 @@ public class InputTest : MonoBehaviour
     [SerializeField] private InputReader inputReader;
 
     [SerializeField] private float playerspeed = 10f;
+    private Vector2 previousMovementInput;
+
     private void Awake()
     {
         inputReader.MoveEvent += HandleMove;
         inputReader.PrimaryFireEvent += HandlePrimaryFire;
     }
+
+    void Update()
+    {
+        this.gameObject.transform.Translate(previousMovementInput*Time.deltaTime*playerspeed);
+    }
     
     private void HandleMove(Vector2 moveVector)
     {
         Debug.Log(moveVector);
-        
+        previousMovementInput = moveVector;
     }
     
     private void HandlePrimaryFire(bool shoot)
@@ -24,7 +32,7 @@ public class InputTest : MonoBehaviour
         if (shoot)
             Debug.Log("Bang");
     }
-
+    
     private void OnDestroy()
     {
         inputReader.MoveEvent -= HandleMove;
