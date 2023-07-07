@@ -12,7 +12,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _AD_CUTOUT_GEOMETRIC_TYPE_CUBE
+  - _AD_CUTOUT_GEOMETRIC_TYPE_PLANE
   - _AD_CUTOUT_STANDARD_SOURCE_CUSTOM_MAP
   - _AD_STATE_ENABLED
   - _EMISSION
@@ -101,8 +101,8 @@ Material:
     - _AdvancedDissolveCutoutGeometric3Radius: 1
     - _AdvancedDissolveCutoutGeometric4Height: 1
     - _AdvancedDissolveCutoutGeometric4Radius: 1
-    - _AdvancedDissolveCutoutGeometricInvert: 1
-    - _AdvancedDissolveCutoutGeometricNoise: 6.02
+    - _AdvancedDissolveCutoutGeometricInvert: 0
+    - _AdvancedDissolveCutoutGeometricNoise: 0.1
     - _AdvancedDissolveCutoutGeometricXYZAxis: 0
     - _AdvancedDissolveCutoutGeometricXYZRollout: 0
     - _AdvancedDissolveCutoutGeometricXYZSpace: 0
@@ -134,7 +134,7 @@ Material:
     - _AdvancedDissolveEdgeGIMetaPassMultiplier: 1
     - _AdvancedDissolveEdgeUVDistortionStrength: 0
     - _AdvancedDissolveKeywordCutoutGeometricCount: 0
-    - _AdvancedDissolveKeywordCutoutGeometricType: 4
+    - _AdvancedDissolveKeywordCutoutGeometricType: 2
     - _AdvancedDissolveKeywordCutoutStandardSource: 2
     - _AdvancedDissolveKeywordCutoutStandardSourceMapsMappingType: 0
     - _AdvancedDissolveKeywordEdgeAdditionalColorSource: 0
@@ -160,8 +160,8 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _AdvancedDissolveBakedKeywords: {r: 0, g: 0, b: 0, a: 0}
-    - _AdvancedDissolveCutoutGeometric1Normal: {r: 0, g: -0.000000119209275, b: 1, a: 0}
-    - _AdvancedDissolveCutoutGeometric1Position: {r: 0.4055, g: 5.0414, b: -524, a: 0}
+    - _AdvancedDissolveCutoutGeometric1Normal: {r: 0, g: -0.00000011920929, b: 1.0000001, a: 0}
+    - _AdvancedDissolveCutoutGeometric1Position: {r: 0.4055, g: 5.0414, b: -10.8, a: 0}
     - _AdvancedDissolveCutoutGeometric2Normal: {r: 0, g: 1, b: 0, a: 0}
     - _AdvancedDissolveCutoutGeometric2Position: {r: 0, g: 0, b: 0, a: 0}
     - _AdvancedDissolveCutoutGeometric3Normal: {r: 1, g: 0, b: 0, a: 0}
