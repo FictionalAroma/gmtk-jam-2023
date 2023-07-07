@@ -46,6 +46,15 @@ namespace Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SecondaryFire"",
+                    ""type"": ""Button"",
+                    ""id"": ""b60ce888-5a29-4f06-a391-e132f0fb5f97"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -156,6 +165,17 @@ namespace Input
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bd4afded-c324-4bfb-b681-34deba22f0db"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SecondaryFire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -745,6 +765,7 @@ namespace Input
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
             m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
+            m_Player_SecondaryFire = m_Player.FindAction("SecondaryFire", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -820,12 +841,14 @@ namespace Input
         private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
         private readonly InputAction m_Player_Move;
         private readonly InputAction m_Player_Fire;
+        private readonly InputAction m_Player_SecondaryFire;
         public struct PlayerActions
         {
             private @Controls m_Wrapper;
             public PlayerActions(@Controls wrapper) { m_Wrapper = wrapper; }
             public InputAction @Move => m_Wrapper.m_Player_Move;
             public InputAction @Fire => m_Wrapper.m_Player_Fire;
+            public InputAction @SecondaryFire => m_Wrapper.m_Player_SecondaryFire;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -841,6 +864,9 @@ namespace Input
                 @Fire.started += instance.OnFire;
                 @Fire.performed += instance.OnFire;
                 @Fire.canceled += instance.OnFire;
+                @SecondaryFire.started += instance.OnSecondaryFire;
+                @SecondaryFire.performed += instance.OnSecondaryFire;
+                @SecondaryFire.canceled += instance.OnSecondaryFire;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -851,6 +877,9 @@ namespace Input
                 @Fire.started -= instance.OnFire;
                 @Fire.performed -= instance.OnFire;
                 @Fire.canceled -= instance.OnFire;
+                @SecondaryFire.started -= instance.OnSecondaryFire;
+                @SecondaryFire.performed -= instance.OnSecondaryFire;
+                @SecondaryFire.canceled -= instance.OnSecondaryFire;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1035,6 +1064,7 @@ namespace Input
         {
             void OnMove(InputAction.CallbackContext context);
             void OnFire(InputAction.CallbackContext context);
+            void OnSecondaryFire(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

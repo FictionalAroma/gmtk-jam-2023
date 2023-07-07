@@ -9,7 +9,8 @@ using static Input.Controls;
 public class InputReader : ScriptableObject, IPlayerActions
 {
     public event Action<bool> PrimaryFireEvent; 
-    public event Action<Vector2> MoveEvent; 
+    public event Action<Vector2> MoveEvent;
+    public event Action<bool> SecondaryFireEvent;
     
     private Controls controls;
     
@@ -35,5 +36,12 @@ public class InputReader : ScriptableObject, IPlayerActions
             PrimaryFireEvent?.Invoke(true);
         else if (context.canceled)
             PrimaryFireEvent?.Invoke(false);
+    }
+
+    public void OnSecondaryFire(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        SecondaryFireEvent?.Invoke(true);
+        
     }
 }
