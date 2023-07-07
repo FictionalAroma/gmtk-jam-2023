@@ -1334,6 +1334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputReader: {fileID: 11400000, guid: 322b219939fe8c04a8e8e42ea860bf52, type: 2}
   playerspeed: 10
+  grappleHookHead: {fileID: 0}
 --- !u!65 &1038766851
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2027,7 +2028,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6232975868564004520, guid: aa827700b19f0de45bbe8d18687154de, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3
+      value: -10.8
       objectReference: {fileID: 0}
     - target: {fileID: 6232975868564004520, guid: aa827700b19f0de45bbe8d18687154de, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2226,7 +2227,7 @@ MonoBehaviour:
   xyzPivotPointPosition: {x: 0, y: 0, z: 0}
   target1StartPointTransform: {fileID: 1366408739}
   target1EndPointTransform: {fileID: 0}
-  target1StartPointPosition: {x: 0.4055, y: 5.0414, z: -3}
+  target1StartPointPosition: {x: 0.4055, y: 5.0414, z: -10.8}
   target1EndPointPosition: {x: 0, y: 0, z: 0}
   target1Radius: 0
   target1Normal: {x: 0, y: -0.00000011920929, z: 1.0000001}

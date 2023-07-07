@@ -10,12 +10,22 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float playerspeed = 10f;
     private Vector2 previousMovementInput;
     [SerializeField] GameObject grappleHookHead;
-    
+    private Camera _camera;
+    private Vector2 previousAimInput;
+    [SerializeField] GameObject aimIndicator;
+    Vector3 dir;
+
     private void Awake()
     {
         inputReader.MoveEvent += HandleMove;
         inputReader.PrimaryFireEvent += HandlePrimaryFire;
         inputReader.SecondaryFireEvent += HandleSecondaryFire;
+        inputReader.AimEvent += HandleAim;
+        
+    }
+    private void Start()
+    {
+        _camera = Camera.main;
     }
 
 
@@ -23,6 +33,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         this.gameObject.transform.Translate(previousMovementInput*Time.deltaTime*playerspeed);
+        var aimPoint = _camera.ScreenToWorldPoint(previousAimInput);
+        dir = this.transform.position -(Vector3)previousAimInput;
+        dir = -dir;
+        aimIndicator.transform.position = dir;
+        Debug.Log("aim dir : " + dir);
 
     }
     public void MoveToGrapple(Vector3 grapplePosition, float grappleHookPull)
@@ -47,14 +62,15 @@ public class PlayerController : MonoBehaviour
         if(shoot)
         {
             var grapplingHook = Instantiate(grappleHookHead,transform.position, Quaternion.identity);
-            grapplingHook.transform.forward = HandleAim();
+            grapplingHook.transform.forward = dir - grapplingHook.transform.position;
+            Debug.Log(grapplingHook.transform.rotation);
         }
     }
 
-    private Vector2 HandleAim()
+    private void HandleAim(Vector2 mouseAimPosition)
     {
-        Vector2 aim = UnityEngine.Input.mousePosition;
-        return aim;
+        previousAimInput = mouseAimPosition;
+        Debug.Log("mouse aim Pos:"+mouseAimPosition);
     }
     private void OnDestroy()
     {

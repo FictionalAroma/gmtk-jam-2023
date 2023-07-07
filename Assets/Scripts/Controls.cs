@@ -55,6 +55,15 @@ namespace Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""f93fc383-c22b-4605-92f7-1c909aaa2d45"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -176,6 +185,17 @@ namespace Input
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""SecondaryFire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ac0e49e7-8d96-484b-a7a3-85d80834ed9f"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -766,6 +786,7 @@ namespace Input
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
             m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
             m_Player_SecondaryFire = m_Player.FindAction("SecondaryFire", throwIfNotFound: true);
+            m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -842,6 +863,7 @@ namespace Input
         private readonly InputAction m_Player_Move;
         private readonly InputAction m_Player_Fire;
         private readonly InputAction m_Player_SecondaryFire;
+        private readonly InputAction m_Player_Look;
         public struct PlayerActions
         {
             private @Controls m_Wrapper;
@@ -849,6 +871,7 @@ namespace Input
             public InputAction @Move => m_Wrapper.m_Player_Move;
             public InputAction @Fire => m_Wrapper.m_Player_Fire;
             public InputAction @SecondaryFire => m_Wrapper.m_Player_SecondaryFire;
+            public InputAction @Look => m_Wrapper.m_Player_Look;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -867,6 +890,9 @@ namespace Input
                 @SecondaryFire.started += instance.OnSecondaryFire;
                 @SecondaryFire.performed += instance.OnSecondaryFire;
                 @SecondaryFire.canceled += instance.OnSecondaryFire;
+                @Look.started += instance.OnLook;
+                @Look.performed += instance.OnLook;
+                @Look.canceled += instance.OnLook;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -880,6 +906,9 @@ namespace Input
                 @SecondaryFire.started -= instance.OnSecondaryFire;
                 @SecondaryFire.performed -= instance.OnSecondaryFire;
                 @SecondaryFire.canceled -= instance.OnSecondaryFire;
+                @Look.started -= instance.OnLook;
+                @Look.performed -= instance.OnLook;
+                @Look.canceled -= instance.OnLook;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1065,6 +1094,7 @@ namespace Input
             void OnMove(InputAction.CallbackContext context);
             void OnFire(InputAction.CallbackContext context);
             void OnSecondaryFire(InputAction.CallbackContext context);
+            void OnLook(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {
