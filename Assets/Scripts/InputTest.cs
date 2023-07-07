@@ -19,6 +19,7 @@ public class InputTest : MonoBehaviour
     void Update()
     {
         this.gameObject.transform.Translate(previousMovementInput*Time.deltaTime*playerspeed);
+
     }
     
     private void HandleMove(Vector2 moveVector)
@@ -32,7 +33,12 @@ public class InputTest : MonoBehaviour
         if (shoot)
             Debug.Log("Bang");
     }
-    
+
+    private Vector2 HandleAim()
+    {
+        Vector2 aim = UnityEngine.Input.mousePosition;
+        return aim;
+    }
     private void OnDestroy()
     {
         inputReader.MoveEvent -= HandleMove;
