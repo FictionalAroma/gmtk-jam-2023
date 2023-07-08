@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GrapplingHook grappleHookHead;
     [SerializeField] GameObject aimIndicator;
     [SerializeField] private float grappleRetractionSpeed = 10f;
-
+    [SerializeField] Tools currentTool;
     private Camera _camera;
     private Vector2 previousAimInput;
     private Vector2 currentMovementInput;
@@ -79,7 +79,13 @@ public class PlayerController : MonoBehaviour
     private void HandlePrimaryFire(bool shoot)
     {
         if (shoot)
-            Debug.Log("Bang");
+        {
+            currentTool.UseTool();
+        }
+        else
+        {
+            currentTool.StopUseTool();
+        }
     }
     private void HandleSecondaryFire(bool shoot)
     {
