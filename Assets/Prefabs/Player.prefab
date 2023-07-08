@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputReader: {fileID: 11400000, guid: 322b219939fe8c04a8e8e42ea860bf52, type: 2}
-  playerspeed: 10
+  playerspeed: 18
   grappleHookHead: {fileID: 3524008965728083533, guid: 17c2b66db1c8d8a4a82c4b6db7be7e37, type: 3}
   aimIndicator: {fileID: 0}
 --- !u!54 &5968935556745010581
@@ -131,7 +131,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2458395133220459333}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 2
   m_Drag: 0
   m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
