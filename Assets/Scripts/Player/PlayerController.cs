@@ -1,9 +1,5 @@
-using System;
 using System.Collections;
-using Cinemachine.Utility;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.PlayerLoop;
 
 public class PlayerController : MonoBehaviour
 {
