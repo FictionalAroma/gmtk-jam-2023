@@ -1,4 +1,5 @@
 using System;
+using Cinemachine.Utility;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
@@ -31,17 +32,14 @@ public class PlayerController : MonoBehaviour
         _camera = Camera.main;
     }
 
-
-
     void Update()
     {
         var aimPoint = _camera.ScreenToWorldPoint(previousAimInput);
         dir = this.transform.position -(Vector3)previousAimInput;
         dir = -dir;
         aimIndicator.transform.position = dir;
-        Debug.Log("aim dir : " + dir);
-
-    }
+		Debug.Log("aim dir : " + dir);
+	}
 
 	private void FixedUpdate()
 	{
