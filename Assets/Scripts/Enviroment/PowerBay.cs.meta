@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: ee7df89db1b01d1418da0fd756d4f450
+<<<<<<<< Updated upstream:Assets/Fire.cs.meta
+guid: e233b841910c5cc488bfa349e59f6b1b
+========
+guid: 3d984551cfb328a45bcae719b39ba238
+>>>>>>>> Stashed changes:Assets/Scripts/Enviroment/PowerBay.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

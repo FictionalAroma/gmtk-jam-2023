@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Assets.Scripts.Enviroment;
 using Common;
 using CommonComponents.Interfaces;
 using UnityEngine;
@@ -9,9 +9,11 @@ namespace Assets.Scripts.Player
 	public class PlayerPickupController : InteractableActor
 	{
 		private Pickup _currentPickup;
+		public Pickup CurrentPickup => _currentPickup;
 
 		[SerializeField] private InputReader inputReader;
 		public Rigidbody RB { get; private set; }
+
 
 		private void Awake()
 		{
@@ -21,17 +23,13 @@ namespace Assets.Scripts.Player
 
 		private void TryPickupOrDrop(bool obj)
 		{
-			if (_currentPickup)
+			if (ActionCurrent())
 			{
-				
-				Drop(_currentPickup);
-			}
-			else
-			{
-				ActionCurrent();
-			}
 
+			}
 		}
+
+		public void Drop() => Drop(CurrentPickup);
 
 		public void Drop(Pickup item)
 		{
@@ -41,7 +39,7 @@ namespace Assets.Scripts.Player
 
 		public void Pickup(Pickup pickup)
 		{
-			if (_currentPickup == null)
+			if (CurrentPickup == null)
 			{
 
 				_currentPickup = pickup;

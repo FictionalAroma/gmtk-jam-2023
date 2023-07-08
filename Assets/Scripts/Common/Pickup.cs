@@ -10,9 +10,6 @@ namespace Common
 	public class Pickup : Interactable
 	{
 		private Joint _joint = null;
-		private void Awake()
-		{
-		}
 
 		public void Connect(Rigidbody actor)
 		{
@@ -21,13 +18,16 @@ namespace Common
 			_joint.connectedMassScale = 0f;
 		}
 
-		public override void Action(InteractableActor actor)
+		public override bool Action(InteractableActor actor)
 		{
 			var pc = actor as PlayerPickupController;
 			if (pc != null)
 			{
 				pc.Pickup(this);
+				return true;
 			}
+
+			return false;
 		}
 
 		public void Disconnect()

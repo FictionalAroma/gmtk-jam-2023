@@ -24,6 +24,6 @@ namespace CommonComponents
 			}
 		}
 
-		public abstract void Action(InteractableActor actor);
+		public abstract bool Action(InteractableActor actor);
 	}
 }

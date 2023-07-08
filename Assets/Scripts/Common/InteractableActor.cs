@@ -4,29 +4,31 @@ namespace CommonComponents.Interfaces
 {
 	public class InteractableActor : MonoBehaviour
 	{
-		private Interactable _interactiveObject;
+		protected Interactable InteractiveObject;
 
 		public void SetInteractableObject(Interactable interactiveObject)
 		{
-			_interactiveObject = interactiveObject;
-			Debug.Log($"CurrentObject = {_interactiveObject}");
+			InteractiveObject = interactiveObject;
+			Debug.Log($"CurrentObject = {InteractiveObject}");
 
 		}
 
 		public void ResetInteractableObject(Interactable interactable)
 		{
-			if (_interactiveObject == interactable)
+			if (InteractiveObject == interactable)
 			{
-				_interactiveObject = null;
+				InteractiveObject = null;
 			}
 		}
 
-		public void ActionCurrent()
+		public bool ActionCurrent()
 		{
-			if (_interactiveObject != null)
+			if (InteractiveObject != null)
 			{
-				_interactiveObject.Action(this);
+				return InteractiveObject.Action(this);
 			}
+
+			return false;
 		}
 	}
 }
