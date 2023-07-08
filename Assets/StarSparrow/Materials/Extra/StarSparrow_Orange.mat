@@ -12,7 +12,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _AD_CUTOUT_GEOMETRIC_TYPE_PLANE
+  - _AD_CUTOUT_GEOMETRIC_TYPE_CUBE
   - _AD_CUTOUT_STANDARD_SOURCE_CUSTOM_MAP
   - _AD_STATE_ENABLED
   - _EMISSION
@@ -134,7 +134,7 @@ Material:
     - _AdvancedDissolveEdgeGIMetaPassMultiplier: 1
     - _AdvancedDissolveEdgeUVDistortionStrength: 0
     - _AdvancedDissolveKeywordCutoutGeometricCount: 0
-    - _AdvancedDissolveKeywordCutoutGeometricType: 2
+    - _AdvancedDissolveKeywordCutoutGeometricType: 4
     - _AdvancedDissolveKeywordCutoutStandardSource: 2
     - _AdvancedDissolveKeywordCutoutStandardSourceMapsMappingType: 0
     - _AdvancedDissolveKeywordEdgeAdditionalColorSource: 0
