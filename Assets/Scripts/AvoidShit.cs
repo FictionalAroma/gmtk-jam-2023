@@ -11,6 +11,8 @@ public class AvoidShit : MonoBehaviour
     private enum Direction
     {
         TopLeft,
+        TopRight,
+        BotLeft,
         BotRight,
     }
 
@@ -36,7 +38,7 @@ public class AvoidShit : MonoBehaviour
 
             // Rotate to target and then back
             yield return Rotate(targetRotation);
-            yield return new WaitForSeconds(waitTime); // wait for some time
+            //yield return new WaitForSeconds(waitTime); // wait for some time
             yield return Rotate(originalRotation);
 
             isRotating = false;
