@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 dir;
     private Rigidbody _rb;
     [SerializeField] GameObject currentTool;
+    Vector3 toolDirection;
 
     private void Awake()
     {
@@ -48,6 +49,7 @@ public class PlayerController : MonoBehaviour
     {
         if (shoot)
         {
+            
             currentTool.GetComponent<Tools>().UseTool();
         }
         else
@@ -86,8 +88,17 @@ public class PlayerController : MonoBehaviour
         aimIndicator.transform.position = new Vector3(worldPosition.x, worldPosition.y, 0f);
 
         Vector3 directionToTarget = aimIndicator.transform.position - grappleHookHead.transform.position;
+        
+        
         float angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
         grappleHookHead.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        if (currentTool != null)
+        {
+            toolDirection = aimIndicator.transform.position - currentTool.transform.position;
+            currentTool.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        }
+           
+       
     }
 
     private void FixedUpdate()
