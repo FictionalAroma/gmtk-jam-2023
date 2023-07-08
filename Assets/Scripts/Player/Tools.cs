@@ -1,8 +1,9 @@
+using Common;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tools : MonoBehaviour
+public class Tools : Pickup
 {
     ParticleSystem toolParticle;
     // Start is called before the first frame update
