@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Cinemachine.Utility;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,12 +11,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private InputReader inputReader;
 
     [SerializeField] private float playerspeed = 10f;
-    private Vector2 currentMovementInput;
-    [SerializeField] GrapplingHook grappleHookHead;
+    [SerializeField] private GrapplingHook grappleHookHead;
+    [SerializeField] GameObject aimIndicator;
+    [SerializeField] private float grappleRetractionSpeed = 10f;
+
     private Camera _camera;
     private Vector2 previousAimInput;
-    [SerializeField] GameObject aimIndicator;
-    Vector3 dir;
+    private Vector2 currentMovementInput;
+    private Vector3 dir;
 	private Rigidbody _rb;
 
 	private void Awake()
@@ -49,13 +52,24 @@ public class PlayerController : MonoBehaviour
 	{
 		_rb.AddForce(currentMovementInput * (Time.fixedDeltaTime * playerspeed), ForceMode.Impulse);
 	}
+    
+    private IEnumerator RetractGrapple()
+    {
+        while (Vector3.Distance(grappleHookHead.transform.position, transform.position) > 0.1f)
+        {
+            grappleHookHead.transform.position = Vector3.MoveTowards(grappleHookHead.transform.position, transform.position, grappleRetractionSpeed * Time.deltaTime);
+            yield return null;
+        }
+    }
 
 	public void MoveToGrapple(Vector3 grapplePosition, float grappleHookPull)
     {
         Debug.Log("Pulling to Hook");
         var dir = grapplePosition - this.transform.position;
 		_rb.AddForce(dir*grappleHookPull,ForceMode.Impulse);
+        StartCoroutine(RetractGrapple());
     }
+    
     private void HandleMove(Vector2 moveVector)
     {
         
