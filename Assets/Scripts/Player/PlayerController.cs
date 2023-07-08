@@ -10,9 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GrapplingHook grappleHookHead;
     [SerializeField] GameObject aimIndicator;
     [SerializeField] private float grappleRetractionSpeed = 10f;
-    [SerializeField] private float grappleRetractionDelay = .2f;
-    
-    public bool isGrappleActive;
+    [SerializeField] Tools currentTool;
     private Camera _camera;
     private Vector2 previousAimInput;
     private Vector2 currentMovementInput;
@@ -32,44 +30,8 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _camera = Camera.main;
-        grappleHookHead.ClearLine();
     }
 
-    #region Handle Input Events
-
-    private void HandleMove(Vector2 moveVector)
-    {
-        currentMovementInput = moveVector;
-    }
-    
-    private void HandlePrimaryFire(bool shoot)
-    {
-        if (shoot)
-            Debug.Log("Bang");
-    }
-    
-    private void HandleSecondaryFire(bool shoot)
-    {
-        if(shoot && !isGrappleActive)
-        {
-            // Unparent the hook while it is shooting
-            grappleHookHead.transform.parent = null;
-
-            StopGrappling();
-            Vector3 direction = (aimIndicator.transform.position - grappleHookHead.transform.position).normalized;
-            grappleHookHead.GetComponent<Rigidbody>().AddForce(direction * grappleHookHead.grappleHookPower, ForceMode.Impulse);
-        
-            isGrappleActive = true;
-        }
-    }
-
-    private void HandleAim(Vector2 mouseAimPosition)
-    {
-        previousAimInput = mouseAimPosition;
-    }
-
-    #endregion
-    
     void Update()
     {
         
@@ -87,43 +49,54 @@ public class PlayerController : MonoBehaviour
 		_rb.AddForce(currentMovementInput * (Time.fixedDeltaTime * playerspeed), ForceMode.Impulse);
 	}
     
-	public void MoveToGrapple(Vector3 grapplePosition, float grappleHookPull)
-    {
-        Debug.Log("Pulling to Hook");
-        var dir = grapplePosition - transform.position;
-		_rb.AddForce(dir * grappleHookPull ,ForceMode.Impulse);
-        StartCoroutine(RetractGrapple());
-    }
-    
     private IEnumerator RetractGrapple()
     {
-        yield return new WaitForSeconds(grappleRetractionDelay);
-        
         while (Vector3.Distance(grappleHookHead.transform.position, transform.position) > 0.1f)
         {
             grappleHookHead.transform.position = Vector3.MoveTowards(grappleHookHead.transform.position, transform.position, grappleRetractionSpeed * Time.deltaTime);
             yield return null;
         }
-
-        // Re-parent the hook when it's done retracting
-        grappleHookHead.transform.parent = transform;
     }
 
-    
-    public void StopGrappling()
+	public void MoveToGrapple(Vector3 grapplePosition, float grappleHookPull)
     {
-        // Reset the grapple
-        grappleHookHead.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        grappleHookHead.transform.position = transform.position;
-
-        // Re-parent the hook immediately if it's not in use
-        grappleHookHead.transform.parent = transform;
-
-        // Remove the line
-        grappleHookHead.ClearLine();
+        Debug.Log("Pulling to Hook");
+        var dir = grapplePosition - this.transform.position;
+		_rb.AddForce(dir*grappleHookPull,ForceMode.Impulse);
+        StartCoroutine(RetractGrapple());
     }
     
-   
+    private void HandleMove(Vector2 moveVector)
+    {
+        
+        currentMovementInput = moveVector;
+    }
+    
+    private void HandlePrimaryFire(bool shoot)
+    {
+        if (shoot)
+        {
+            currentTool.UseTool();
+        }
+        else
+        {
+            currentTool.StopUseTool();
+        }
+    }
+    private void HandleSecondaryFire(bool shoot)
+    {
+        if(shoot)
+        {
+            Vector3 direction = (aimIndicator.transform.position - grappleHookHead.transform.position).normalized;
+            grappleHookHead.GetComponent<Rigidbody>().AddForce(direction * grappleHookHead.grappleHookPower, ForceMode.Impulse);
+            Debug.Log(grappleHookHead.transform.rotation);
+        }
+    }
+
+    private void HandleAim(Vector2 mouseAimPosition)
+    {
+        previousAimInput = mouseAimPosition;
+    }
     private void OnDestroy()
     {
         inputReader.MoveEvent -= HandleMove;
