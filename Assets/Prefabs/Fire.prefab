@@ -41,9 +41,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6561252785754697758}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14ec6b4a625544b4a970c4002c5d94ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 80a5d4f81c3a6dd41b315eeffa1817a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireHp: 50
-  fireDamage: 1
-  fireCooldown: 1.5
+  fireHp: 0
+  fireDamage: 0
+  fireCooldown: 0
+  fires:
+  - {fileID: 6360420542703049433, guid: 8fcb9d2d43929c04f8c70c38581418d4, type: 3}
+  - {fileID: 5933200329339262740, guid: 123eaecb0dcde6d4e94428d554d1f6c9, type: 3}
+  - {fileID: 5987572886358014243, guid: 923791c7c386b014dab87eb63f30018d, type: 3}
+  - {fileID: 7539522403395165278, guid: cfd52433c2081db47b83623fd9394d6f, type: 3}
