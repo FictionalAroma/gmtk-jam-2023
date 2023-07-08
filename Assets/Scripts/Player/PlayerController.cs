@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 dir;
     private Rigidbody _rb;
     [SerializeField] GameObject currentTool;
+    [SerializeField] GameObject aim;
     Vector3 toolDirection;
 
     private void Awake()
@@ -86,9 +87,9 @@ public class PlayerController : MonoBehaviour
         Vector3 screenPosition = new Vector3(previousAimInput.x, previousAimInput.y, _camera.nearClipPlane);
         Vector3 worldPosition = _camera.ScreenToWorldPoint(screenPosition);
         aimIndicator.transform.position = new Vector3(worldPosition.x, worldPosition.y, 0f);
-
-        Vector3 directionToTarget = aimIndicator.transform.position - grappleHookHead.transform.position;
         
+        Vector3 directionToTarget = aimIndicator.transform.position - this.transform.position;
+        aim.transform.localPosition = directionToTarget.normalized;
         
         float angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
         grappleHookHead.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
