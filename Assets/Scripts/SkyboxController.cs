@@ -4,20 +4,15 @@ using UnityEngine;
 
 public class SkyboxController : MonoBehaviour
 {
-    public float xRotation = 30;
-    public float yRotation = 30;
-    public float zRotation = 30;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float xRotation;
+    public float yRotation;
+    public float zRotation;
 
     // Update is called once per frame
     void Update()
     {
-        RenderSettings.skybox.SetFloat("xRotation",xRotation);
-        RenderSettings.skybox.SetFloat("yRotation",yRotation);
-        RenderSettings.skybox.SetFloat("zRotation",zRotation);
+        
+        transform.Rotate(xRotation*Time.deltaTime, yRotation*Time.deltaTime, zRotation * Time.deltaTime);
+
     }
 }
