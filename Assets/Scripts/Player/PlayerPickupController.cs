@@ -23,6 +23,7 @@ namespace Assets.Scripts.Player
 		{
 			if (_currentPickup)
 			{
+				
 				Drop(_currentPickup);
 			}
 			else
@@ -42,8 +43,10 @@ namespace Assets.Scripts.Player
 		{
 			if (_currentPickup == null)
 			{
+
 				_currentPickup = pickup;
-				pickup.Connect(RB);
+                
+                pickup.Connect(RB);
 			}
 		}
 	}

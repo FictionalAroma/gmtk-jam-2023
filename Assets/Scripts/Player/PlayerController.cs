@@ -65,13 +65,20 @@ public class PlayerController : MonoBehaviour
         {
             // Unparent the hook while it is shooting
             grappleHookHead.transform.parent = null;
-
-            StopGrappling();
             Vector3 direction = (aimIndicator.transform.position - grappleHookHead.transform.position).normalized;
             grappleHookHead.GetComponent<Rigidbody>().AddForce(direction * grappleHookHead.grappleHookPower, ForceMode.Impulse);
 
             isGrappleActive = true;
         }
+        if (!shoot) 
+        {
+            if (isGrappleActive)
+            {
+                StopGrappling();
+                isGrappleActive = false;
+            }
+        }
+        
     }
 
     private void HandleAim(Vector2 mouseAimPosition)
@@ -117,8 +124,8 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator RetractGrapple()
     {
+        
         yield return new WaitForSeconds(grappleRetractionDelay);
-
         while (Vector3.Distance(grappleHookHead.transform.position, transform.position) > 0.1f)
         {
             grappleHookHead.transform.position = Vector3.MoveTowards(grappleHookHead.transform.position, transform.position, grappleRetractionSpeed * Time.deltaTime);
@@ -127,6 +134,7 @@ public class PlayerController : MonoBehaviour
 
         // Re-parent the hook when it's done retracting
         grappleHookHead.transform.parent = transform;
+        grappleHookHead.GetComponent<BoxCollider>().enabled = true;
     }
 
 
