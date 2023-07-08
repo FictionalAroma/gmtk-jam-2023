@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 currentMovementInput;
     private Vector3 dir;
     private Rigidbody _rb;
+    [SerializeField] GameObject currentTool;
 
     private void Awake()
     {
@@ -45,7 +47,13 @@ public class PlayerController : MonoBehaviour
     private void HandlePrimaryFire(bool shoot)
     {
         if (shoot)
-            Debug.Log("Bang");
+        {
+            currentTool.GetComponent<Tools>().UseTool();
+        }
+        else
+        {
+            currentTool.GetComponent<Tools>().StopUseTool();
+        }
     }
 
     private void HandleSecondaryFire(bool shoot)
