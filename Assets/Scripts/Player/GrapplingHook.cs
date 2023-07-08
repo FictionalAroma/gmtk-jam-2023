@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ public class GrapplingHook : MonoBehaviour
     
     [SerializeField] private LineRenderer lineRenderer;
     private PlayerController _player;
-
+	Joint _joint;
 	private void Start()
 	{
 		_player = FindObjectOfType<PlayerController>();
@@ -39,13 +40,28 @@ public class GrapplingHook : MonoBehaviour
 	{
 		lineRenderer.SetPosition(0, Vector3.zero);
 		lineRenderer.SetPosition(1, Vector3.zero);
+		Disconnect();
 	}
+    public void Connect(Rigidbody actor)
+    {
+        _joint = gameObject.AddComponent<FixedJoint>();
+		this.GetComponent<BoxCollider>().enabled = false;
+        _joint.connectedBody = actor;
+        _joint.connectedMassScale = 0f;
+    }
+    public void Disconnect()
+    {
+        Destroy(_joint);
+        _joint = null;
+		
+    }
 
-	private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
 	{
 		if (collision.gameObject.CompareTag("Hookable"))
 		{
-			this.transform.position = collision.GetContact(0).point;
+
+			Connect(collision.gameObject.GetComponent<Rigidbody>());
 			_player.MoveToGrapple(transform.position, grappleHookPull);
 			_player.isGrappleActive = false;
 		}

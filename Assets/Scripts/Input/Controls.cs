@@ -53,7 +53,7 @@ namespace Input
                     ""id"": ""b60ce888-5a29-4f06-a391-e132f0fb5f97"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
                 },
                 {

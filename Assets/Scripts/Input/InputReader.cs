@@ -39,8 +39,15 @@ public class InputReader : ScriptableObject, IPlayerActions
 
 	public void OnSecondaryFire(InputAction.CallbackContext context)
 	{
-		if (context.performed)
-			SecondaryFireEvent?.Invoke(true);
+		if (context.interaction is HoldInteraction)
+		{
+            SecondaryFireEvent?.Invoke(true);
+        }
+		else if (context.canceled)
+		{
+			SecondaryFireEvent.Invoke(false);
+		}
+			
 	}
 
 	public void OnLook(InputAction.CallbackContext context) { AimEvent?.Invoke(context.ReadValue<Vector2>()); }
