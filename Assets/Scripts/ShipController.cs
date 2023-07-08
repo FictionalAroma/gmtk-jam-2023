@@ -1,44 +1,100 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
+using UnityEngine.Splines.Interpolators;
 
 public class ShipController : MonoBehaviour
 {
-    public float shipXrotation;
-    public float shipYrotation;
-    public float shipZrotation;
     SkyboxController skyboxController;
     public float dodgePower;
-    public GameObject testEnemy;
-    [SerializeField] float ControlPitchFactor = 10f;
+    [SerializeField] GameObject dirobject;
+    //[SerializeField] BoxCollider[] colliders;
+    [Tooltip("how far the ship moves on x axis")][SerializeField] float xRange = 5f;
+    [Tooltip("how far the ship moves on y axis")][SerializeField] float yRange = 3.5f;
+    Vector2 dodgeTopRight = new Vector2 (-1, -1);
+    Vector2 dodgeTopLeft = new Vector2 (1, -1);
+    Vector2 dodgeBotRight = new Vector2 (-1, 1);
+    Vector2 dodgeBotLeft = new Vector2 (1, 1);
+    [SerializeField] float positionPitchFactor = 2f;
+    [SerializeField] float positionRollFactor = -5f;
+    [SerializeField] float ControlPitchFactor = -10f;
     [SerializeField] float controlYawFactor = 5f;
     [SerializeField] float controlRollFactor = 20f;
+    [SerializeField] bool isDodging;
+    Vector2 direction;
+    float yThrow;
+    float xThrow;
     // Start is called before the first frame update
     void Start()
     {
+
+
         skyboxController = FindObjectOfType<SkyboxController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //AngleDir(this.transform.forward,testEnemy.transform.forward,this.transform.up);
-        //print(AngleDir(this.transform.forward, testEnemy.transform.forward, this.transform.up));
-        
-        transform.rotation = Quaternion.Euler(shipYrotation*ControlPitchFactor, shipXrotation*controlYawFactor, shipZrotation*controlRollFactor);
-        //transform.Rotate(shipXrotation * Time.deltaTime, shipYrotation * Time.deltaTime, shipZrotation * Time.deltaTime);
-        if (this.transform.rotation.x > 15 || this.transform.rotation.x < -15)
+        if (isDodging)
         {
-            shipXrotation = 0;
-        }
-        if (this.transform.rotation.y > 10 || this.transform.rotation.y < -10)
-        {
-            shipYrotation = 0;
-        }
+            if (direction.y > 0 && direction.x > 0)
+            {
+                ProcessTranslation(dodgeTopRight * dodgePower);
 
+            }
+            if (direction.y > 0 && direction.x < 0)
+            {
+                ProcessTranslation(dodgeTopLeft * dodgePower);
+            }
+            if (direction.y < 0 && direction.x > 0)
+            {
+                ProcessTranslation(dodgeBotRight * dodgePower);
+            }
+            if (direction.y < 0 && direction.x < 0)
+            {
+                ProcessTranslation(dodgeBotLeft * dodgePower);
+            }
+            Debug.Log(direction);
+            Debug.Log(xThrow);
+            
+        }
+        else
+        {
+            ProcessTranslation(Vector2.zero);
+            
+            
+        }
+        ProcessRotation();
 
     }
+
+    void ProcessTranslation(Vector2 vector2Throw)
+    {
+        Debug.Log($"Vector2 Throw: {vector2Throw}");
+        xThrow = vector2Throw.x;
+        yThrow = vector2Throw.y;
+
+        float xOffset = xThrow * Time.deltaTime * dodgePower;
+        float yOffset = yThrow * Time.deltaTime * dodgePower;
+        float rawXPos = transform.position.x + xOffset;
+        float rawYPos = transform.position.y + yOffset;
+        float clampedXpos = Mathf.Clamp(rawXPos, -xRange, xRange);
+        float clampedYpos = Mathf.Clamp(rawYPos, -yRange, yRange);
+        transform.position = new Vector3(clampedXpos, clampedYpos, transform.position.z);
+    }
+
+    void ProcessRotation()
+    {
+        float pitch = transform.position.y * positionPitchFactor*System.Convert.ToInt32(isDodging) + yThrow * ControlPitchFactor*Time.deltaTime;
+        float yaw = transform.position.x * controlYawFactor* System.Convert.ToInt32(isDodging);
+        float roll = transform.position.x * positionRollFactor* System.Convert.ToInt32(isDodging) + xThrow;
+        Debug.Log($"Pitch :{pitch}, Yaw : {yaw}, Roll: {roll}");
+        transform.rotation = Quaternion.Euler(pitch, yaw, roll);
+    }
+
+
     //returns -1 when to the left, 1 to the right, and 0 for forward/backward
     /*public float AngleDir(Vector3 fwd, Vector3 targetDir, Vector3 up)
     {
@@ -58,20 +114,20 @@ public class ShipController : MonoBehaviour
             return 0.0f;
         }
     }*/
-    void DetectThreat(GameObject threat, string threatTag)
+    void DetectThreat(GameObject threat)
     {
-        if (threatTag == "Asteroid")
+        if (threat.gameObject.tag == "Asteroid")
         {
-            //float dir = AngleDir(this.transform.forward, threat.transform.forward, this.transform.up);
-            var dir = (threat.transform.position - this.transform.position).normalized;
-            Debug.Log(dir);
-            Dodge(dir);
+           
+            StartCoroutine(Dodge());
         }
-        if (threatTag == "EnemySpaceShip")
+        if (threat.gameObject.tag == "EnemySpaceShip")
         {
-            var dir = (threat.transform.position - this.transform.position).normalized;
+            /*var dir = (threat.transform.position - this.transform.position).normalized;
             Debug.Log(dir);
-            Dodge(-dir);
+            Instantiate(dirobject, -dir*10, Quaternion.identity);
+            StartCoroutine(Dodge(-dir));*/
+            StartCoroutine(Dodge());
         }
           
     }
@@ -80,13 +136,11 @@ public class ShipController : MonoBehaviour
     {
 
     }
-    void Dodge(Vector3 direction)
+    IEnumerator Dodge()
     {
-        
-        shipZrotation = direction.z*dodgePower;
-        shipYrotation = direction.y*dodgePower;
-        shipXrotation = direction.x*dodgePower;
-      
+        isDodging = true;
+        yield return new WaitForSeconds(2);
+        isDodging = false;
     }
     void Fire()
     {
@@ -94,8 +148,12 @@ public class ShipController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.tag);
-        DetectThreat(other.gameObject, other.gameObject.tag);
+       StartCoroutine (Dodge());
+       direction = (other.gameObject.transform.position - transform.position).normalized;
         
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log(collision.gameObject.tag);
     }
 }
