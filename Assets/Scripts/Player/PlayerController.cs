@@ -1,6 +1,7 @@
 using System;
 using Cinemachine.Utility;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.PlayerLoop;
 
 public class PlayerController : MonoBehaviour
@@ -34,12 +35,14 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        
         var aimPoint = _camera.ScreenToWorldPoint(previousAimInput);
-        dir = this.transform.position -(Vector3)previousAimInput;
+        Debug.Log(aimPoint);
+        dir = this.transform.position - (Vector3)previousAimInput;
         dir = -dir;
-        aimIndicator.transform.position = dir;
-		Debug.Log("aim dir : " + dir);
-	}
+        aimIndicator.transform.position = previousAimInput;
+        grappleHookHead.transform.LookAt(aimIndicator.transform);
+    }
 
 	private void FixedUpdate()
 	{
@@ -54,7 +57,7 @@ public class PlayerController : MonoBehaviour
     }
     private void HandleMove(Vector2 moveVector)
     {
-        Debug.Log(moveVector);
+        
         currentMovementInput = moveVector;
     }
     
@@ -67,17 +70,18 @@ public class PlayerController : MonoBehaviour
     {
         if(shoot)
         {
-            var grapplingHook = Instantiate<GrapplingHook>(grappleHookHead,transform.position, Quaternion.identity);
-			grapplingHook.Init(this);
-            grapplingHook.transform.forward = dir - grapplingHook.transform.position;
-            Debug.Log(grapplingHook.transform.rotation);
+			
+            
+            grappleHookHead.GetComponent<Rigidbody>().AddForce(dir.normalized * grappleHookHead.grappleHookPower, ForceMode.Impulse);
+            Debug.Log(grappleHookHead.transform.rotation);
         }
     }
 
     private void HandleAim(Vector2 mouseAimPosition)
     {
         previousAimInput = mouseAimPosition;
-        Debug.Log("mouse aim Pos:"+mouseAimPosition);
+        Debug.Log(mouseAimPosition);
+        
     }
     private void OnDestroy()
     {

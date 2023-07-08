@@ -11,7 +11,7 @@ public class GrapplingHook : MonoBehaviour
 	PlayerController _player;
     void Start()
     {
-        this.GetComponent<Rigidbody>().AddForce(Vector3.forward * grappleHookPower, ForceMode.Impulse);
+        
     }
 
 
