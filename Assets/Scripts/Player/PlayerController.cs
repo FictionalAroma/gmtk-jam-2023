@@ -36,12 +36,13 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         
-        var aimPoint = _camera.ScreenToWorldPoint(previousAimInput);
-        Debug.Log(aimPoint);
-        dir = this.transform.position - (Vector3)previousAimInput;
-        dir = -dir;
-        aimIndicator.transform.position = previousAimInput;
-        grappleHookHead.transform.LookAt(aimIndicator.transform);
+        Vector3 screenPosition = new Vector3(previousAimInput.x, previousAimInput.y, _camera.nearClipPlane);
+        Vector3 worldPosition = _camera.ScreenToWorldPoint(screenPosition);
+        aimIndicator.transform.position = new Vector3(worldPosition.x, worldPosition.y, 0f);
+        
+        Vector3 directionToTarget = aimIndicator.transform.position - grappleHookHead.transform.position;
+        float angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
+        grappleHookHead.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
 	private void FixedUpdate()
@@ -70,9 +71,8 @@ public class PlayerController : MonoBehaviour
     {
         if(shoot)
         {
-			
-            
-            grappleHookHead.GetComponent<Rigidbody>().AddForce(dir.normalized * grappleHookHead.grappleHookPower, ForceMode.Impulse);
+            Vector3 direction = (aimIndicator.transform.position - grappleHookHead.transform.position).normalized;
+            grappleHookHead.GetComponent<Rigidbody>().AddForce(direction * grappleHookHead.grappleHookPower, ForceMode.Impulse);
             Debug.Log(grappleHookHead.transform.rotation);
         }
     }
@@ -80,8 +80,6 @@ public class PlayerController : MonoBehaviour
     private void HandleAim(Vector2 mouseAimPosition)
     {
         previousAimInput = mouseAimPosition;
-        Debug.Log(mouseAimPosition);
-        
     }
     private void OnDestroy()
     {

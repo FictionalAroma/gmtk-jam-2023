@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -9,13 +10,13 @@ public class GrapplingHook : MonoBehaviour
     public float grappleHookPower;
     public float grappleHookPull;
 	PlayerController _player;
-    void Start()
-    {
-        
-    }
 
+	private void Start()
+	{
+		_player = FindObjectOfType<PlayerController>();
+	}
 
-    private void OnCollisionEnter(Collision collision)
+	private void OnCollisionEnter(Collision collision)
     {
         Debug.Log(collision.gameObject.tag);
         if (collision.gameObject.CompareTag("Hookable"))
