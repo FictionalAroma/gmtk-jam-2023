@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 598d38938f1e364488c14f04902580fc
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - inputReader: {fileID: 11400000, guid: 322b219939fe8c04a8e8e42ea860bf52, type: 2}
+  - grappleHookHead: {instanceID: 0}
+  - aimIndicator: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

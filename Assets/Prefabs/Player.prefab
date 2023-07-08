@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8540098841223685860}
   - component: {fileID: 2190788304279490221}
   - component: {fileID: 5968935556745010581}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8284859616667903291
 MeshFilter:
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d5489073c435b6b4ebb5c9ac5378f6f1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -121,7 +121,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputReader: {fileID: 11400000, guid: 322b219939fe8c04a8e8e42ea860bf52, type: 2}
   playerspeed: 10
-  grappleHookHead: {fileID: 395745410973700746, guid: 17c2b66db1c8d8a4a82c4b6db7be7e37, type: 3}
+  grappleHookHead: {fileID: 3524008965728083533, guid: 17c2b66db1c8d8a4a82c4b6db7be7e37, type: 3}
+  aimIndicator: {fileID: 0}
 --- !u!54 &5968935556745010581
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -132,7 +133,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -144,8 +145,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Constraints: 120
+  m_CollisionDetection: 1

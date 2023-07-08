@@ -8,10 +8,9 @@ public class GrapplingHook : MonoBehaviour
     // Start is called before the first frame update
     public float grappleHookPower;
     public float grappleHookPull;
-    GameObject player;
+	PlayerController _player;
     void Start()
     {
-        player = FindObjectOfType<PlayerController>().gameObject;
         this.GetComponent<Rigidbody>().AddForce(Vector3.forward * grappleHookPower, ForceMode.Impulse);
     }
 
@@ -22,9 +21,12 @@ public class GrapplingHook : MonoBehaviour
         if (collision.gameObject.CompareTag("Hookable"))
         {
             this.transform.position = collision.GetContact(0).point;
-            player.GetComponent<PlayerController>().MoveToGrapple(this.transform.position,grappleHookPull);
+			_player.MoveToGrapple(transform.position,grappleHookPull);
         }
     }
 
-
+	public void Init(PlayerController playerController)
+	{
+		_player = playerController;
+	}
 }

@@ -101,8 +101,8 @@ Material:
     - _AdvancedDissolveCutoutGeometric3Radius: 1
     - _AdvancedDissolveCutoutGeometric4Height: 1
     - _AdvancedDissolveCutoutGeometric4Radius: 1
-    - _AdvancedDissolveCutoutGeometricInvert: 0
-    - _AdvancedDissolveCutoutGeometricNoise: 0.1
+    - _AdvancedDissolveCutoutGeometricInvert: 1
+    - _AdvancedDissolveCutoutGeometricNoise: 6.02
     - _AdvancedDissolveCutoutGeometricXYZAxis: 0
     - _AdvancedDissolveCutoutGeometricXYZRollout: 0
     - _AdvancedDissolveCutoutGeometricXYZSpace: 0
