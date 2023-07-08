@@ -26,6 +26,7 @@ public class ShipController : MonoBehaviour
     Vector2 direction;
     float yThrow;
     float xThrow;
+    [SerializeField] int hullDamage;
     // Start is called before the first frame update
     void Start()
     {
@@ -155,5 +156,9 @@ public class ShipController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Debug.Log(collision.gameObject.tag);
+    }
+    public void TakeDamage(int damage)
+    {
+
     }
 }
