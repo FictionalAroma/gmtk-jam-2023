@@ -16,6 +16,18 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioClip[] sfxInnerClips;
     [SerializeField] AudioClip[] ambienceClips;
     // Start is called before the first frame update
+    private static AudioManager instance { get; set; }
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
     void Start()
     {
        

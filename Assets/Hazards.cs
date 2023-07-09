@@ -23,6 +23,7 @@ public class Hazards : MonoBehaviour
     
     [SerializeField]GameObject fireModel;
     // Start is called before the first frame update
+
     void Start()
     {
         hazardCooldownTimer = hazardCooldown;
