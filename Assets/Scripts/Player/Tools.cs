@@ -15,9 +15,19 @@ public class Tools : Pickup
     {
 
         _toolParticle.Play();
+        if (this.tag =="Welder")
+        {
+            audioManager.PlayPlayerSFX(audioManager.playerAudioClips[AudioManager.PlayerAudioClips.weldingSFX]);
+        }
+        else
+        {
+            audioManager.PlayPlayerSFX(audioManager.playerAudioClips[AudioManager.PlayerAudioClips.fireExtinguisherSFX]);
+        }
+        
     }
     public override void StopUse()
     {
         _toolParticle.Stop();
+        audioManager.StopPlayerSFX();
     }
 }

@@ -115,12 +115,20 @@ public class AudioManager : MonoBehaviour
     {
         if(!playerSFXManager.GetComponent<AudioSource>().isPlaying)
         {
-            playerSFXManager.GetComponent<AudioSource>().PlayOneShot(playerSFX);
+            playerSFXManager.GetComponent <AudioSource>().clip = playerSFX;
+            playerSFXManager.GetComponent<AudioSource>().Play();
         }
         else
         {
             playerSFXManager.GetComponent<AudioSource>().Stop();
-            playerSFXManager.GetComponent<AudioSource>().PlayOneShot(playerSFX);
+            playerSFXManager.GetComponent<AudioSource>().clip = playerSFX;
+            playerSFXManager.GetComponent<AudioSource>().Play();
         }
+    }
+    public void StopPlayerSFX()
+    {
+        playerSFXManager.GetComponent<AudioSource>().Stop();
+        playerSFXManager.GetComponent<AudioSource>().clip = null;
+
     }
 }
