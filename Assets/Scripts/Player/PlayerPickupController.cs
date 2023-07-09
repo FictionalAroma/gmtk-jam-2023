@@ -69,9 +69,10 @@ namespace Assets.Scripts.Player
 		public void AimHand(Vector3 aimPos)
 		{
 			Vector3 directionToTarget = aimPos - this.transform.position;
+			directionToTarget.z = 0;
 			float angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
 
-			this.transform.SetLocalPositionAndRotation(directionToTarget.normalized, Quaternion.AngleAxis(angle, Vector3.forward));
+			this.transform.SetLocalPositionAndRotation(directionToTarget.normalized, Quaternion.AngleAxis(angle - 90, Vector3.forward));
 			if (_currentPickup != null)
 			{
 				_currentPickup.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
