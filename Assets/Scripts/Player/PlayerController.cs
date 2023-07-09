@@ -45,8 +45,8 @@ public class PlayerController : MonoBehaviour
     {
         _camera = Camera.main;
         grappleHookHead.ClearLine();
-        audioManager = FindObjectOfType(typeof(AudioManager)) as AudioManager;
-    }
+		audioManager = FindObjectOfType<AudioManager>();
+	}
 
     #region Handle Input Events
 

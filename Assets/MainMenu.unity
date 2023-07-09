@@ -447,6 +447,7 @@ GameObject:
   - component: {fileID: 352765504}
   - component: {fileID: 352765503}
   - component: {fileID: 352765502}
+  - component: {fileID: 352765506}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -539,6 +540,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &352765506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 352765501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 542b26603bc42c04fbbb560c1e1c64e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &354980808
 GameObject:
   m_ObjectHideFlags: 0
@@ -1012,28 +1025,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2178228274523322643, guid: cba80b68be50acb49b146ebadc20cac4, type: 3}
   m_PrefabInstance: {fileID: 710578917}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &710578919 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 948310629290569814, guid: cba80b68be50acb49b146ebadc20cac4, type: 3}
-  m_PrefabInstance: {fileID: 710578917}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &710578920 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8905129479012121000, guid: cba80b68be50acb49b146ebadc20cac4, type: 3}
-  m_PrefabInstance: {fileID: 710578917}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &964072367
 GameObject:
   m_ObjectHideFlags: 0
@@ -1870,7 +1861,6 @@ GameObject:
   - component: {fileID: 1909618296}
   - component: {fileID: 1909618295}
   - component: {fileID: 1909618294}
-  - component: {fileID: 1909618297}
   m_Layer: 5
   m_Name: StartBtn
   m_TagString: Untagged
@@ -1942,7 +1932,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1909618295}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 352765506}
+        m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
+        m_MethodName: StartGameClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1909618295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1981,20 +1983,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1909618292}
   m_CullTransparentMesh: 1
---- !u!114 &1909618297
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1909618292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f9484d8a22025840af62ccc2bc6c3dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unselected: {fileID: 710578920}
-  selected: {fileID: 710578919}
 --- !u!1001 &4393361688553587670
 PrefabInstance:
   m_ObjectHideFlags: 0
