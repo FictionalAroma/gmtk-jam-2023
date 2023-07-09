@@ -1,5 +1,6 @@
 using System.Collections;
 using Assets.Scripts.Enviroment;
+using UnityEditor;
 using UnityEngine;
 
 public class ShipController : MonoBehaviour
@@ -31,9 +32,12 @@ public class ShipController : MonoBehaviour
     [SerializeField] private PowerPoint shieldPower;
 	[SerializeField] private PowerPoint weaponPower;
 	[SerializeField] private PowerPoint thrustPower;
+    [SerializeField] GameObject youloseText;
     // Start is called before the first frame update
     void Start()
     {
+        youloseText.SetActive (false);
+        hullCurrentHp = hullMaxHp;
         audioManager = FindObjectOfType(typeof(AudioManager)) as AudioManager;
         hullCurrentHp = hullMaxHp;
         skyboxController = FindObjectOfType<SkyboxController>();
@@ -72,6 +76,11 @@ public class ShipController : MonoBehaviour
             
         }
         ProcessRotation();
+        if (hullCurrentHp<=0)
+        {
+            Time.timeScale = 0;
+            youloseText.SetActive(true);
+        }
 
     }
 
