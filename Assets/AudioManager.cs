@@ -53,6 +53,9 @@ public class AudioManager : MonoBehaviour
         {
             instance = this;
         }
+        innerAudioClips = new Dictionary<InnerAudioClip, AudioClip>();
+        outerAudioClips = new Dictionary<OuterAudioClips, AudioClip>();
+        playerAudioClips = new Dictionary<PlayerAudioClips, AudioClip>();
         
     }
     void Start()
