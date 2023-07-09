@@ -92,7 +92,7 @@ public class AudioManager : MonoBehaviour
     {
 
     }
-    public IEnumerator SpeakDialogue()
+    /*public IEnumerator SpeakDialogue()
     {
         stillSpeaking = true;
         while (stillSpeaking)
@@ -110,7 +110,7 @@ public class AudioManager : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
     public void PlayOuterSFX(AudioClip sFX)
     {
         if (!sfxOuterManager.GetComponent<AudioSource>().isPlaying)
