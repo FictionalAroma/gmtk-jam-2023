@@ -13,7 +13,7 @@ namespace Assets.Scripts.Enviroment
 		[SerializeField] private Transform ejectPos;
 		[SerializeField] private PowerPointUIController uiController;
 		
-		[SerializeField] private float powerDrainRate = 1f;
+		[SerializeField] private float powerDrainRate = 2f;
 
 		private void Start()
 		{
@@ -21,18 +21,23 @@ namespace Assets.Scripts.Enviroment
 			//if power is 0, eject cell
 			//if power is 0 and no cell, disable powerpoint
 			
-			InvokeRepeating(nameof(UsePower), 0, powerDrainRate);
+			InvokeRepeating(nameof(UsePower), 2f, powerDrainRate);
 		}
 
 		public void UsePower()
 		{
+			var totalPower = 0;
 			foreach (var bay in bays)
 			{
 				bay.UsePower((int)powerDrainRate);
-				uiController.SetStatusBarValue(bay.CellPower);
+				totalPower += bay.CellPower;
 				if(bay.HasCell && bay.CellPower == 0)
 					EjectCell(bay);
 			}
+
+			var percentPower = totalPower / (bays.Count * 100.0f);
+			uiController.SetStatusBarValue(percentPower);
+
 		}
 
 		public override bool Action(InteractableActor actor)
