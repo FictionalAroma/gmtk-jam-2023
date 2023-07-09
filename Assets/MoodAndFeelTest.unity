@@ -1865,6 +1865,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1258621054504207183, guid: 60390f4c751d60f4c8f11e2ff3221a8d, type: 3}
   m_PrefabInstance: {fileID: 815856057}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &815856060 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3247783972398457622, guid: 60390f4c751d60f4c8f11e2ff3221a8d, type: 3}
+  m_PrefabInstance: {fileID: 815856057}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08e48eb37a4abbd409638fda4bad2e7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &897606449
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2541,6 +2552,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 057560448b5e4084f9a6995e3d3ff764, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1177743304 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3247783972398457622, guid: 60390f4c751d60f4c8f11e2ff3221a8d, type: 3}
+  m_PrefabInstance: {fileID: 897606449}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08e48eb37a4abbd409638fda4bad2e7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1222231977
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2611,6 +2633,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1258621054504207183, guid: 60390f4c751d60f4c8f11e2ff3221a8d, type: 3}
   m_PrefabInstance: {fileID: 1222231977}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1222231980 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3247783972398457622, guid: 60390f4c751d60f4c8f11e2ff3221a8d, type: 3}
+  m_PrefabInstance: {fileID: 1222231977}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08e48eb37a4abbd409638fda4bad2e7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1233836025
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9182,6 +9215,9 @@ MonoBehaviour:
   isDodging: 0
   hullMaxHp: 0
   hullCurrentHp: 0
+  shieldPower: {fileID: 1222231980}
+  weaponPower: {fileID: 1177743304}
+  thrustPower: {fileID: 815856060}
 --- !u!135 &4801533747282776
 SphereCollider:
   m_ObjectHideFlags: 0
