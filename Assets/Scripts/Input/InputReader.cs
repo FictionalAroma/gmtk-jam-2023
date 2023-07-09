@@ -15,7 +15,8 @@ public class InputReader : ScriptableObject, IPlayerActions
 	public event Action<bool> SecondaryFireEvent;
 	public event Action<Vector2> AimEvent;
 	public event Action<bool> PlayerActionEvent;
-
+	public event Action<bool> PauseEvent;
+	
 	private Controls _controls;
 
 	private void OnEnable()
@@ -61,6 +62,7 @@ public class InputReader : ScriptableObject, IPlayerActions
 
 	public void OnPause(InputAction.CallbackContext context)
 	{
-		GameStateManager.Instance.SetState(GameState.Paused);
+		PauseEvent?.Invoke(true);
+		//GameStateManager.Instance.SetState(GameState.Paused);
 	}
 }
