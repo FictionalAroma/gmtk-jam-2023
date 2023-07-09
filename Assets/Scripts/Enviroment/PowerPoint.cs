@@ -20,6 +20,7 @@ namespace Assets.Scripts.Enviroment
 				var cell = pc.CurrentPickup as PowerCell;
 				if (cell != null)
 				{
+					pc.Drop();
 					return AddCell(cell);
 				}
 			}
@@ -30,7 +31,7 @@ namespace Assets.Scripts.Enviroment
 		private bool AddCell(PowerCell cell)
 		{
 			var bay = FindBay(false);
-			if (bay != null)
+			if (bay == null)
 			{
 				bay = GetLowestPowerCell();
 

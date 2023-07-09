@@ -1,4 +1,5 @@
 using System.Collections;
+using Assets.Scripts.Player;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -11,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject aimIndicator;
     [SerializeField] private float grappleRetractionSpeed = 10f;
     [SerializeField] private float grappleRetractionDelay = .2f;
+	[SerializeField] private PlayerPickupController handController;
 
     public bool isGrappleActive;
     private Camera _camera;
@@ -18,14 +20,11 @@ public class PlayerController : MonoBehaviour
     private Vector2 currentMovementInput;
     private Vector3 dir;
     private Rigidbody _rb;
-    [SerializeField] GameObject currentTool;
-    [SerializeField] GameObject aim;
     Vector3 toolDirection;
 
     private void Awake()
     {
         inputReader.MoveEvent += HandleMove;
-        inputReader.PrimaryFireEvent += HandlePrimaryFire;
         inputReader.SecondaryFireEvent += HandleSecondaryFire;
         inputReader.AimEvent += HandleAim;
 
@@ -45,18 +44,6 @@ public class PlayerController : MonoBehaviour
         currentMovementInput = moveVector;
     }
 
-    private void HandlePrimaryFire(bool shoot)
-    {
-        if (shoot)
-        {
-            
-            currentTool.GetComponent<Tools>().UseTool();
-        }
-        else
-        {
-            currentTool.GetComponent<Tools>().StopUseTool();
-        }
-    }
 
     private void HandleSecondaryFire(bool shoot)
     {
@@ -94,18 +81,11 @@ public class PlayerController : MonoBehaviour
         aimIndicator.transform.position = new Vector3(worldPosition.x, worldPosition.y, 0f);
         
         Vector3 directionToTarget = aimIndicator.transform.position - this.transform.position;
-        aim.transform.localPosition = directionToTarget.normalized;
         
         float angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
         grappleHookHead.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        if (currentTool != null)
-        {
-            toolDirection = aimIndicator.transform.position - currentTool.transform.position;
-            currentTool.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        }
-           
-       
-    }
+		handController.AimHand(directionToTarget.normalized, angle);
+	}
 
     private void FixedUpdate()
     {
@@ -143,6 +123,5 @@ public class PlayerController : MonoBehaviour
     private void OnDestroy()
     {
         inputReader.MoveEvent -= HandleMove;
-        inputReader.PrimaryFireEvent -= HandlePrimaryFire;
     }
 }

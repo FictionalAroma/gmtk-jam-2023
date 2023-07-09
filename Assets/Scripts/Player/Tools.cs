@@ -9,17 +9,12 @@ public class Tools : Pickup
     {
         toolParticle = GetComponent<ParticleSystem>();
     }
-    private void Update()
-    {
-        
-    }
-
-    public void UseTool()
+	public override void Use()
     {
 
         toolParticle.Play();
     }
-    public void StopUseTool()
+    public override void StopUse()
     {
         toolParticle.Stop();
     }

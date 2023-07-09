@@ -15,6 +15,7 @@ namespace Common
 			_joint = gameObject.AddComponent<FixedJoint>();
 			_joint.connectedBody = actor;
 			_joint.connectedMassScale = 0f;
+			EnableColliders(false);
 		}
 
 		public override bool Action(InteractableActor actor)
@@ -33,6 +34,24 @@ namespace Common
 		{
 			Destroy(_joint);
 			_joint = null;
+			EnableColliders(true);
+		}
+
+		public virtual void StopUse() {  }
+		public virtual void Use() { }
+		public void EnablePhysics(bool enable)
+		{
+			GetComponent<Rigidbody>().isKinematic = !enable;
+			EnableColliders(enable);
+		}
+
+		private void EnableColliders(bool enable)
+		{
+			var colls = GetComponents<Collider>();
+			foreach (var coll in colls)
+			{
+				coll.enabled = enable;
+			}
 		}
 	}
 }

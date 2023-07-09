@@ -6,7 +6,7 @@ namespace Assets.Scripts.Enviroment
 	{
 		private PowerCell _attachedCell = null;
 
-		public bool HasCell => _attachedCell == null;
+		public bool HasCell => _attachedCell != null;
 		public int CellPower => _attachedCell != null ? _attachedCell.CurrentPower : 0;
 
 		public void PlugIn(PowerCell newCell)

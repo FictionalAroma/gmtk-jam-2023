@@ -1,6 +1,7 @@
 ﻿using Common;
 using CommonComponents.Interfaces;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 namespace Assets.Scripts.Player
 {
@@ -17,25 +18,44 @@ namespace Assets.Scripts.Player
 		private void Awake()
 		{
 			inputReader.PlayerActionEvent += TryPickupOrDrop;
+			inputReader.PrimaryFireEvent += HandlePrimaryFire;
 			RB = GetComponent<Rigidbody>();
 		}
 
 		private void TryPickupOrDrop(bool obj)
 		{
-			if (ActionCurrent())
+			if (!ActionCurrent())
 			{
-
+				Drop();
 			}
 		}
 
-		public void Drop() => Drop(CurrentPickup);
-
-		public void Drop(Pickup item)
+		private void HandlePrimaryFire(bool shoot)
 		{
-			_currentPickup = null;
-			item.Disconnect();
+			if (_currentPickup != null)
+			{
+				if (shoot)
+				{
+
+					_currentPickup.Use();
+				}
+				else
+				{
+					_currentPickup.StopUse();
+				}
+			}
 		}
 
+
+		public void Drop()
+        {
+			_currentPickup = null;
+			if (_currentPickup != null)
+			{
+				_currentPickup.Disconnect();
+				_currentPickup = null;
+			}
+		}
 		public void Pickup(Pickup pickup)
 		{
 			if (CurrentPickup == null)
@@ -45,6 +65,14 @@ namespace Assets.Scripts.Player
                 
                 pickup.Connect(RB);
 			}
+		}
+
+		public void AimHand(Vector3 aimDir, float angle)
+		{
+			this.transform.SetLocalPositionAndRotation(aimDir, Quaternion.AngleAxis(angle, Vector3.forward));
+			if (_currentPickup != null)
+			{
+				_currentPickup.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);			}
 		}
 	}
 }
