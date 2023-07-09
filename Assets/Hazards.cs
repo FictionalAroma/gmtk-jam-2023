@@ -20,7 +20,7 @@ public class Hazards : MonoBehaviour
     [SerializeField] HazardType hazardType;
     [SerializeField] GameObject metalCrack;
     [SerializeField] bool hazardIsActive;
-    
+    AudioManager audioManager;
     [SerializeField]GameObject fireModel;
     // Start is called before the first frame update
 
@@ -30,6 +30,7 @@ public class Hazards : MonoBehaviour
         hazardCurrentHp = hazardMaxHp;
         hazardIsActive = false;
         shipController = FindObjectOfType<ShipController>();
+        audioManager = FindObjectOfType(typeof(AudioManager)) as AudioManager;
     }
 
     // Update is called once per frame

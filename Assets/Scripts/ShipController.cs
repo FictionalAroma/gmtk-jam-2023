@@ -24,10 +24,11 @@ public class ShipController : MonoBehaviour
     float xThrow;
     [SerializeField] int hullMaxHp;
     [SerializeField] int hullCurrentHp;
+    AudioManager audioManager;
     // Start is called before the first frame update
     void Start()
     {
-
+        audioManager = FindObjectOfType(typeof(AudioManager)) as AudioManager;
         hullCurrentHp = hullMaxHp;
         skyboxController = FindObjectOfType<SkyboxController>();
     }
