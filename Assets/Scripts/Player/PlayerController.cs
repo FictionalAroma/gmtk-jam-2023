@@ -52,7 +52,17 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMove(Vector2 moveVector)
     {
+
         currentMovementInput = moveVector;
+        if (moveVector != Vector2.zero)
+        {
+            audioManager.StopPlayerSFX();
+            audioManager.PlayPlayerSFX(audioManager.playerAudioClips[AudioManager.PlayerAudioClips.jetpackSFX]);
+        }
+        else
+        {
+            audioManager.StopPlayerSFX();
+        }
     }
 
 

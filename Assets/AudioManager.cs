@@ -41,6 +41,7 @@ public class AudioManager : MonoBehaviour
     public Dictionary<InnerAudioClip, AudioClip> innerAudioClips;
     public Dictionary<OuterAudioClips, AudioClip> outerAudioClips;
     public Dictionary<PlayerAudioClips, AudioClip> playerAudioClips;
+    public bool stillSpeaking;
     // Start is called before the first frame update
     private static AudioManager instance { get; set; }
     private void Awake()
@@ -82,9 +83,33 @@ public class AudioManager : MonoBehaviour
     {
         
     }
+    public void PlayAmbience()
+    {
+        ambienceManager.GetComponent<AudioSource>().clip = ambienceClip;
+        ambienceManager.GetComponent<AudioSource>().Play();
+    }
     public void PlayDialogue()
     {
 
+    }
+    public IEnumerator SpeakDialogue()
+    {
+        stillSpeaking = true;
+        while (stillSpeaking)
+        {
+            dialogueSFXManager.GetComponent<AudioSource>().Stop();
+            int randomClip = Random.Range(0, dialogueClips.Length - 1);
+            dialogueSFXManager.GetComponent<AudioSource>().clip = dialogueClips[randomClip];
+            dialogueSFXManager.GetComponent<AudioSource>().Play();
+            while(dialogueSFXManager.GetComponent<AudioSource>().isPlaying)
+            {
+                yield return null;
+                if (stillSpeaking == false)
+                {
+                    break;
+                }
+            }
+        }
     }
     public void PlayOuterSFX(AudioClip sFX)
     {
@@ -103,13 +128,14 @@ public class AudioManager : MonoBehaviour
     {
         if(!sfxInnerManager.GetComponent<AudioSource>().isPlaying)
         {
-            sfxInnerManager.GetComponent<AudioSource>().PlayOneShot(sFX);
+            sfxInnerManager.GetComponent<AudioSource>().clip = sFX;
+            sfxInnerManager.GetComponent<AudioSource>().Play();
         }
-        else
-        {
-            sfxInnerManager.GetComponent<AudioSource>().Stop();
-            sfxInnerManager.GetComponent<AudioSource>().PlayOneShot(sFX);
-        }
+       
+    }
+    public void StopInnerSFX()
+    {
+        sfxInnerManager.GetComponent<AudioSource>().Stop();
     }
     public void PlayPlayerSFX(AudioClip playerSFX)
     {

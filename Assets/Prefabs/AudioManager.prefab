@@ -46,7 +46,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -217,6 +217,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2df378f81843dde44bee32a7b9f6949b, type: 3}
   - {fileID: 8300000, guid: 8ba5c1332ce273e49ad90563ef2b5d4b, type: 3}
   ambienceClip: {fileID: 8300000, guid: 1aa83096aa6e9f842a6e07a20cb67d3e, type: 3}
+  stillSpeaking: 0
 --- !u!1 &2260990080338778670
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,7 +520,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

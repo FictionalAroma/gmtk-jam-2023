@@ -22,6 +22,7 @@ public class Hazards : MonoBehaviour
     public bool hazardIsActive;
     AudioManager audioManager;
     [SerializeField]GameObject fireModel;
+    [SerializeField] bool test;
     // Start is called before the first frame update
 
     void Start()
@@ -54,7 +55,16 @@ public class Hazards : MonoBehaviour
                 
             }
         }
+        if (test)
+        {
+            Test();
+        }
         
+    }
+    public void Test()
+    {
+        
+        ActivateHazard();
     }
     private void DeactivateHazard()
     {
@@ -70,6 +80,7 @@ public class Hazards : MonoBehaviour
             this.GetComponent<Collider>().enabled=false;
             hazardIsActive = false;
         }
+        audioManager.StopInnerSFX();
     }
 
     public void ActivateHazard()
@@ -80,6 +91,7 @@ public class Hazards : MonoBehaviour
             fireModel.SetActive(true);
             this.GetComponent<Collider>().enabled = true;
             hazardIsActive=true;
+            audioManager.PlayInnerSFX(audioManager.innerAudioClips[AudioManager.InnerAudioClip.fireSFX]);
         }
         else
         {
@@ -87,6 +99,7 @@ public class Hazards : MonoBehaviour
             metalCrack.transform.parent = this.transform;
             this.GetComponent<Collider>().enabled = true;
             hazardIsActive = true;
+            audioManager.PlayInnerSFX(audioManager.innerAudioClips[AudioManager.InnerAudioClip.metalCrackSFX]);
         }
     }
     private void OnParticleCollision(GameObject other)
