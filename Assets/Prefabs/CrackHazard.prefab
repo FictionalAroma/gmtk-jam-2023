@@ -4948,7 +4948,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80a5d4f81c3a6dd41b315eeffa1817a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hazardMaxHp: 300
+  hazardMaxHp: 30
   hazardCurrentHp: 0
   hazardDamage: 1
   hazardCooldown: 1
@@ -4957,3 +4957,4 @@ MonoBehaviour:
   metalCrack: {fileID: 5338807483322054347}
   hazardIsActive: 0
   fireModel: {fileID: 5338807483322054347}
+  test: 0

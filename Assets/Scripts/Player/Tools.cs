@@ -17,10 +17,12 @@ public class Tools : Pickup
         _toolParticle.Play();
         if (this.tag =="Welder")
         {
+            audioManager.StopPlayerSFX();
             audioManager.PlayPlayerSFX(audioManager.playerAudioClips[AudioManager.PlayerAudioClips.weldingSFX]);
         }
         else
         {
+            //audioManager.StopPlayerSFX();
             audioManager.PlayPlayerSFX(audioManager.playerAudioClips[AudioManager.PlayerAudioClips.fireExtinguisherSFX]);
         }
         

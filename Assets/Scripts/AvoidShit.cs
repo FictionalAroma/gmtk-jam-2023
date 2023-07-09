@@ -46,6 +46,21 @@ public class AvoidShit : MonoBehaviour
 
         IEnumerator Rotate(Quaternion toRotation)
         {
+            Quaternion fromRotation = transform.rotation;
+            float startTime = Time.time;
+            float endTime = startTime + rotateTime;
+
+            while (Time.time < endTime)
+            {
+                float t = (Time.time - startTime) / rotateTime;
+                transform.rotation = Quaternion.Slerp(fromRotation, toRotation, t);
+                yield return null;
+            }
+
+            transform.rotation = toRotation; // Ensure final rotation
+        }
+        /*IEnumerator Rotate(Quaternion toRotation)
+        {
             float startTime = Time.time;
 
             while (Time.time < startTime + rotateTime)
@@ -54,7 +69,7 @@ public class AvoidShit : MonoBehaviour
                 yield return null;
             }
 
-            transform.rotation = toRotation; // ensure final rotation
-        }
+            //transform.rotation = toRotation; // ensure final rotation
+        }*/
     }
 }

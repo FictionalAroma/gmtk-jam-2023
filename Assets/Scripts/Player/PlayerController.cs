@@ -45,6 +45,16 @@ public class PlayerController : MonoBehaviour
         _camera = Camera.main;
         grappleHookHead.ClearLine();
 		audioManager = FindObjectOfType<AudioManager>();
+        if (handController.GetComponent<LineRenderer>() != null)
+        {
+
+            handController.GetComponent<LineRenderer>().startWidth = 0.1f;
+            handController.GetComponent<LineRenderer>().endWidth = 0.1f;
+            handController.GetComponent<LineRenderer>().startColor = Color.white;
+            handController.GetComponent<LineRenderer>().endColor = Color.white;
+            
+        }
+        
 	}
 
     #region Handle Input Events
@@ -102,8 +112,14 @@ public class PlayerController : MonoBehaviour
         Vector3 worldPosition = _camera.ScreenToWorldPoint(screenPosition);
         aimIndicator.transform.position = new Vector3(worldPosition.x, worldPosition.y, 0f);
 		handController.AimHand(aimIndicator.transform.position);
-		
-	}
+        if (handController.GetComponent<LineRenderer>() != null)
+        {
+            handController.GetComponent<LineRenderer>().SetPosition(0,handController.transform.position);
+            handController.GetComponent<LineRenderer>().SetPosition(1, this.transform.position);
+        }
+
+
+    }
 
     private void FixedUpdate()
     {
