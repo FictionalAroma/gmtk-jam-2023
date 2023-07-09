@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Assets.Scripts.Player;
 using CommonComponents;
 using CommonComponents.Interfaces;
@@ -31,7 +30,7 @@ namespace Assets.Scripts.Enviroment
 			{
 				bay.UsePower((int)powerDrainRate);
 				uiController.SetStatusBarValue(bay.CellPower);
-				if(bay.HasCell)
+				if(bay.HasCell && bay.CellPower == 0)
 					EjectCell(bay);
 			}
 		}
