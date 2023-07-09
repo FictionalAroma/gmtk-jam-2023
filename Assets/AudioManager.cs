@@ -53,11 +53,15 @@ public class AudioManager : MonoBehaviour
         {
             instance = this;
         }
+        
+    }
+    void Start()
+    {
         innerAudioClips.Add(InnerAudioClip.powerOffSFX, sfxInnerClips[2]);
-        innerAudioClips.Add(InnerAudioClip.lockonAlarmSFX, sfxOuterClips[1]);
-        innerAudioClips.Add(InnerAudioClip.powerOnSFX, sfxOuterClips[0]);
+        innerAudioClips.Add(InnerAudioClip.lockonAlarmSFX, sfxInnerClips[1]);
+        innerAudioClips.Add(InnerAudioClip.powerOnSFX, sfxInnerClips[0]);
         innerAudioClips.Add(InnerAudioClip.fireSFX, sfxInnerClips[4]);
-        innerAudioClips.Add(InnerAudioClip.metalCrackSFX, sfxOuterClips[3]);
+        innerAudioClips.Add(InnerAudioClip.metalCrackSFX, sfxInnerClips[3]);
 
         outerAudioClips.Add(OuterAudioClips.flybySFX, sfxOuterClips[2]);
         outerAudioClips.Add(OuterAudioClips.laserSFX, sfxOuterClips[0]);
@@ -68,10 +72,6 @@ public class AudioManager : MonoBehaviour
         playerAudioClips.Add(PlayerAudioClips.jetpackSFX, playerSFXClips[0]);
         playerAudioClips.Add(PlayerAudioClips.weldingSFX, playerSFXClips[2]);
         playerAudioClips.Add(PlayerAudioClips.grapplinghookSFX, playerSFXClips[3]);
-    }
-    void Start()
-    {
-        
     }
 
     // Update is called once per frame
