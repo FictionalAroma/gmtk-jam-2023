@@ -120,12 +120,12 @@ public class ShipController : MonoBehaviour
     }*/
     void DetectThreat(GameObject threat)
     {
-        if (threat.gameObject.tag == "Asteroid")
+        if (threat.CompareTag("Asteroid"))
         {
            
             StartCoroutine(Dodge());
         }
-        if (threat.gameObject.tag == "EnemySpaceShip")
+        if (threat.CompareTag("EnemySpaceShip"))
         {
             /*var dir = (threat.transform.position - this.transform.position).normalized;
             Debug.Log(dir);
@@ -160,8 +160,6 @@ public class ShipController : MonoBehaviour
     {
         Debug.Log(collision.gameObject.tag);
     }
-    public void TakeDamage(int damage)
-    {
-        hullCurrentHp = -damage;
-    }
+
+	public void TakeDamage(int damage) => hullCurrentHp -= damage;
 }

@@ -53,10 +53,11 @@ public class PlayerController : MonoBehaviour
         {
             // Unparent the hook while it is shooting
             grappleHookHead.transform.parent = this.transform.parent;
-            Vector3 direction = (aimIndicator.transform.position - grappleHookHead.transform.position).normalized;
+            Vector3 direction = (aimIndicator.transform.position - grappleHookHead.transform.position);
+			direction.z = grappleHookHead.transform.position.z;
 			float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-            grappleHookHead.Shoot(direction, angle);
+            grappleHookHead.Shoot(direction.normalized, angle);
 
             isGrappleActive = true;
         }
