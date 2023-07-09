@@ -252,7 +252,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 10240
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -279,10 +279,10 @@ Rigidbody:
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 6135
+    m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
@@ -358,6 +358,10 @@ PrefabInstance:
     - target: {fileID: 1273799065747683257, guid: 17c2b66db1c8d8a4a82c4b6db7be7e37, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3524008965728083533, guid: 17c2b66db1c8d8a4a82c4b6db7be7e37, type: 3}
+      propertyPath: grappleHookPower
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

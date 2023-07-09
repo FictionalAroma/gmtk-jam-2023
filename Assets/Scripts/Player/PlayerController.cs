@@ -52,17 +52,17 @@ public class PlayerController : MonoBehaviour
             // Unparent the hook while it is shooting
             grappleHookHead.transform.parent = null;
             Vector3 direction = (aimIndicator.transform.position - grappleHookHead.transform.position).normalized;
-            grappleHookHead.GetComponent<Rigidbody>().AddForce(direction * grappleHookHead.grappleHookPower, ForceMode.Impulse);
+			float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+            grappleHookHead.Shoot(direction, angle);
 
             isGrappleActive = true;
         }
-        if (!shoot) 
+        if (!shoot && isGrappleActive) 
         {
-            if (isGrappleActive)
-            {
-                grappleHookHead.StopGrappling();
-            }
-        }
+			grappleHookHead.StopGrappling();
+			isGrappleActive = false;
+		}
         
     }
 
@@ -81,47 +81,29 @@ public class PlayerController : MonoBehaviour
         aimIndicator.transform.position = new Vector3(worldPosition.x, worldPosition.y, 0f);
         
         Vector3 directionToTarget = aimIndicator.transform.position - this.transform.position;
-        
-        float angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
-        grappleHookHead.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+		float angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
 		handController.AimHand(directionToTarget.normalized, angle);
 	}
 
     private void FixedUpdate()
     {
-        _rb.AddForce(currentMovementInput * (Time.fixedDeltaTime * playerspeed), ForceMode.Impulse);
-    }
+		if (grappleHookHead.IsConnected)
+		{
+			var grappleDir = grappleHookHead.transform.position - transform.position;
+			_rb.AddForce(grappleDir * grappleHookHead.grappleHookPower, ForceMode.Force);
 
-    public void MoveToGrapple(Vector3 grapplePosition, float grappleHookPull)
-    {
-        Debug.Log("Pulling to Hook");
-        var dir = grapplePosition - transform.position;
-        _rb.AddForce(dir * grappleHookPull, ForceMode.Impulse);
-        StartCoroutine(RetractGrapple());
-    }
+		}
+		else
+		{
+			_rb.AddForce(currentMovementInput * playerspeed, ForceMode.Force);
+		}
+	}
 
-    private IEnumerator RetractGrapple()
-    {
-        
-        yield return new WaitForSeconds(grappleRetractionDelay);
-        while (Vector3.Distance(grappleHookHead.transform.position, transform.position) > 0.1f)
-        {
-            grappleHookHead.transform.position = Vector3.MoveTowards(grappleHookHead.transform.position, transform.position, grappleRetractionSpeed * Time.deltaTime);
-            yield return null;
-        }
+	private void OnDestroy()
+    {        
+		inputReader.SecondaryFireEvent -= HandleSecondaryFire;
+		inputReader.AimEvent -= HandleAim;
 
-        // Re-parent the hook when it's done retracting
-        grappleHookHead.transform.parent = transform;
-        grappleHookHead.GetComponent<BoxCollider>().enabled = true;
-        isGrappleActive = false;
-
-    }
-
-
-
-
-    private void OnDestroy()
-    {
         inputReader.MoveEvent -= HandleMove;
     }
 }

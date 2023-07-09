@@ -190,9 +190,9 @@ namespace Input
                     ""name"": """",
                     ""id"": ""bd4afded-c324-4bfb-b681-34deba22f0db"",
                     ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold"",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""SecondaryFire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false

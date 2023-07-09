@@ -39,14 +39,14 @@ public class InputReader : ScriptableObject, IPlayerActions
 
 	public void OnSecondaryFire(InputAction.CallbackContext context)
 	{
-		if (context.interaction is HoldInteraction)
+		if (context.canceled)
 		{
-            SecondaryFireEvent?.Invoke(true);
-        }
-		else if (context.canceled)
-		{
-			SecondaryFireEvent.Invoke(false);
+			SecondaryFireEvent?.Invoke(false);
 		}
+		else if (context.interaction is HoldInteraction)
+		{
+			SecondaryFireEvent?.Invoke(true);
+        }
 			
 	}
 

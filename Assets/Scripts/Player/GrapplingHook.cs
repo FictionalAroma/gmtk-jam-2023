@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class GrapplingHook : MonoBehaviour
@@ -9,10 +10,20 @@ public class GrapplingHook : MonoBehaviour
     [SerializeField] private LineRenderer lineRenderer;
     private PlayerController _player;
 	Joint _joint;
+	private Rigidbody _rb;
+	private Collider _collider;
+	public bool IsConnected => _joint != null;
+
+	private void Awake()
+	{
+		_rb = GetComponent<Rigidbody>();
+		_collider = GetComponent<Collider>();
+	}
+
 	private void Start()
 	{
 		_player = FindObjectOfType<PlayerController>();
-		
+		StopGrappling();
 		if (lineRenderer != null) 
 		{
 			lineRenderer.startWidth = 0.1f; 
@@ -20,6 +31,16 @@ public class GrapplingHook : MonoBehaviour
 			lineRenderer.startColor = Color.white;
 			lineRenderer.endColor = Color.white;
 		}
+	}
+
+	public void Shoot(Vector3 directionToTarget, float angle)
+	{
+		this.gameObject.SetActive(true);
+
+		transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+		_rb.AddForce(directionToTarget * grappleHookPower, ForceMode.Impulse);
+		_collider.enabled = true;
 	}
 	
 	void Update() 
@@ -40,14 +61,16 @@ public class GrapplingHook : MonoBehaviour
     public void Connect(Rigidbody actor)
     {
         _joint = gameObject.AddComponent<FixedJoint>();
-		this.GetComponent<BoxCollider>().enabled = false;
         _joint.connectedBody = actor;
         _joint.connectedMassScale = 0f;
+
+		_collider.enabled = false;
+
     }
 	public void StopGrappling()
 	{
 		// Reset the grapple
-		this.GetComponent<Rigidbody>().velocity = Vector3.zero;
+		_rb.velocity = Vector3.zero;
 		this.transform.position = _player.transform.position;
 
 		// Re-parent the hook immediately if it's not in use
@@ -55,8 +78,11 @@ public class GrapplingHook : MonoBehaviour
 
 		// Remove the line
 		ClearLine();
+
+		this.gameObject.SetActive(false);
 	}
-        public void Disconnect()
+
+	public void Disconnect()
     {
         Destroy(_joint);
         _joint = null;
@@ -67,10 +93,7 @@ public class GrapplingHook : MonoBehaviour
 	{
 		if (collision.gameObject.CompareTag("Hookable"))
 		{
-
 			Connect(collision.gameObject.GetComponent<Rigidbody>());
-			_player.MoveToGrapple(transform.position, grappleHookPull);
-			_player.isGrappleActive = false;
 		}
 	}
 }
