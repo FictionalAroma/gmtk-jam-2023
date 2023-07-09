@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Enviroment;
-using Common;
+﻿using Common;
 using CommonComponents.Interfaces;
 using UnityEngine;
 

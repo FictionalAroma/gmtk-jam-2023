@@ -4,8 +4,6 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 
-using AmazingAssets.AdvancedDissolve;
-
 namespace AmazingAssets.AdvancedDissolveEditor
 {
     public class KeywordsBaker : EditorWindow

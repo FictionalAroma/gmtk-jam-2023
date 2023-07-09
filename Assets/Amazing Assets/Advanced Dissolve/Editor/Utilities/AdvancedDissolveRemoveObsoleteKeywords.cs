@@ -1,8 +1,6 @@
-﻿using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using System.IO;
 
 namespace AmazingAssets.AdvancedDissolveEditor
 {
