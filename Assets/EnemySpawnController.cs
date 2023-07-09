@@ -14,7 +14,7 @@ public class EnemySpawnController : MonoBehaviour
 
     private IEnumerator SpawnEnemies()
     {
-       while (true)
+        while (true)
        {
            yield return new WaitForSeconds(Random.Range(2f, 5f));
            Instantiate(enemyPrefab, spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)].position, Quaternion.identity);

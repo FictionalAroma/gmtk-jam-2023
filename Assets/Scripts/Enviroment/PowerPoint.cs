@@ -13,22 +13,27 @@ namespace Assets.Scripts.Enviroment
 		[SerializeField] protected List<PowerBay> bays;
 		[SerializeField] private Transform ejectPos;
 		[SerializeField] private PowerPointUIController uiController;
+		
+		[SerializeField] private float powerDrainRate = 1f;
 
-		public bool UsePower(int amount)
+		private void Start()
+		{
+			//call use power by drain rate
+			//if power is 0, eject cell
+			//if power is 0 and no cell, disable powerpoint
+			
+			InvokeRepeating(nameof(UsePower), 0, powerDrainRate);
+		}
+
+		public void UsePower()
 		{
 			foreach (var bay in bays)
 			{
-				if (bay.UsePower(amount))
-				{
-					return true;
-				}
+				bay.UsePower((int)powerDrainRate);
+				uiController.SetStatusBarValue(bay.CellPower);
 				if(bay.HasCell)
-				{
 					EjectCell(bay);
-				}
 			}
-
-			return false;
 		}
 
 		public override bool Action(InteractableActor actor)

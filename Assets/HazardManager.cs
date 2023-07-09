@@ -16,16 +16,10 @@ public class HazardManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(1, 8));
-            bool didActivate = false;
-            while (!didActivate)
-            {
-                Hazards hazard = hazards[Random.Range(0, hazards.Length)].GetComponent<Hazards>();
-                if (!hazard.hazardIsActive)
-                {
-                    hazard.ActivateHazard();
-                    didActivate = true;
-                }
-            }
+
+            Hazards hazard = hazards[Random.Range(0, hazards.Length)].GetComponent<Hazards>();
+            if (!hazard.hazardIsActive)
+                hazard.ActivateHazard();
         }
     }
 }
