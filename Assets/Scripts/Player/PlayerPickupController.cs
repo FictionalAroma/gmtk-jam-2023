@@ -1,7 +1,6 @@
 ﻿using Common;
 using CommonComponents.Interfaces;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 namespace Assets.Scripts.Player
 {
