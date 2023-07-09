@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Assets.Scripts.Player;
 using CommonComponents;
 using CommonComponents.Interfaces;
@@ -9,8 +10,26 @@ namespace Assets.Scripts.Enviroment
 {
 	public class PowerPoint : Interactable
 	{
-		[SerializeField] private List<PowerBay> bays;
+		[SerializeField] protected List<PowerBay> bays;
 		[SerializeField] private Transform ejectPos;
+
+
+		public bool UsePower(int amount)
+		{
+			foreach (var bay in bays)
+			{
+				if (bay.UsePower(amount))
+				{
+					return true;
+				}
+				if(bay.HasCell)
+				{
+					EjectCell(bay);
+				}
+			}
+
+			return false;
+		}
 
 		public override bool Action(InteractableActor actor)
 		{
@@ -50,7 +69,7 @@ namespace Assets.Scripts.Enviroment
 			cell.transform.SetPositionAndRotation(transform1.position, transform1.rotation);
 		}
 
-		private void EjectCell(PowerBay bay)
+		protected void EjectCell(PowerBay bay)
 		{
 			var eject = bay.Eject();
 			eject.EnablePhysics(true);
@@ -60,11 +79,13 @@ namespace Assets.Scripts.Enviroment
 		private PowerBay GetLowestPowerCell()
 		{
 			PowerBay lowestBay = null;
+			int lowestPower = 100;
 			foreach (var bay in bays)
 			{
-				if (lowestBay == null || (bay.HasCell && bay.CellPower < lowestBay.CellPower))
+				if (bay.HasCell && bay.CellPower < lowestPower)
 				{
 					lowestBay = bay;
+					lowestPower = bay.CellPower;
 				}
 			}
 
