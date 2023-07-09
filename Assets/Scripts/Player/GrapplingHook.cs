@@ -44,7 +44,19 @@ public class GrapplingHook : MonoBehaviour
         _joint.connectedBody = actor;
         _joint.connectedMassScale = 0f;
     }
-    public void Disconnect()
+	public void StopGrappling()
+	{
+		// Reset the grapple
+		this.GetComponent<Rigidbody>().velocity = Vector3.zero;
+		this.transform.position = _player.transform.position;
+
+		// Re-parent the hook immediately if it's not in use
+		this.transform.parent = _player.transform;
+
+		// Remove the line
+		ClearLine();
+	}
+        public void Disconnect()
     {
         Destroy(_joint);
         _joint = null;
