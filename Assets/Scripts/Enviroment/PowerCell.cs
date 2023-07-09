@@ -1,6 +1,4 @@
 using Common;
-using CommonComponents;
-using CommonComponents.Interfaces;
 using UnityEngine;
 
 public class PowerCell : Pickup

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.Player;
-using System.Drawing;
 using CommonComponents;
 using CommonComponents.Interfaces;
 using JetBrains.Annotations;

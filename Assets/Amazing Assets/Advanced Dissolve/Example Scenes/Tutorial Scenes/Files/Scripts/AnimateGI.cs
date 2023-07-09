@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 
-using AmazingAssets.AdvancedDissolve;
-
 namespace AmazingAssets.AdvancedDissolve.ExampleScripts
 {
     public class AnimateGI : MonoBehaviour

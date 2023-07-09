@@ -1,9 +1,3 @@
-using UnityEngine;
-using UnityEditor;
-using System.Collections;
-using System.Linq;
-
-
 namespace AmazingAssets.AdvancedDissolveEditor
 {
     class AdvancedDissolveKeywordEdgeBaseSourceDrawer : AdvancedDissolveKeywordsDrawer
