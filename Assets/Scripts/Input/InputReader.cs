@@ -1,5 +1,7 @@
 using System;
+using CommonComponents.Interfaces;
 using Input;
+using Management;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
@@ -55,5 +57,10 @@ public class InputReader : ScriptableObject, IPlayerActions
 	public void OnAction(InputAction.CallbackContext context)
 	{
 		if (context.performed) PlayerActionEvent?.Invoke(true);
+	}
+
+	public void OnPause(InputAction.CallbackContext context)
+	{
+		GameStateManager.Instance.SetState(GameState.Paused);
 	}
 }
