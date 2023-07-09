@@ -20,6 +20,7 @@ namespace Common
 
 		public override bool Action(InteractableActor actor)
 		{
+			if (_joint != null) return false;
 			var pc = actor as PlayerPickupController;
 			if (pc != null)
 			{

@@ -49,7 +49,6 @@ namespace Assets.Scripts.Player
 
 		public void Drop()
         {
-			_currentPickup = null;
 			if (_currentPickup != null)
 			{
 				_currentPickup.Disconnect();
@@ -67,12 +66,17 @@ namespace Assets.Scripts.Player
 			}
 		}
 
-		public void AimHand(Vector3 aimDir, float angle)
+		public void AimHand(Vector3 aimPos)
 		{
-			this.transform.SetLocalPositionAndRotation(aimDir, Quaternion.AngleAxis(angle, Vector3.forward));
+			Vector3 directionToTarget = aimPos - this.transform.position;
+			float angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
+
+			this.transform.SetLocalPositionAndRotation(directionToTarget.normalized, Quaternion.AngleAxis(angle, Vector3.forward));
 			if (_currentPickup != null)
 			{
-				_currentPickup.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);			}
+				_currentPickup.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+			}
 		}
+
 	}
 }

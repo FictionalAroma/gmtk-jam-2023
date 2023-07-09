@@ -79,10 +79,7 @@ public class PlayerController : MonoBehaviour
         Vector3 screenPosition = new Vector3(previousAimInput.x, previousAimInput.y, _camera.nearClipPlane);
         Vector3 worldPosition = _camera.ScreenToWorldPoint(screenPosition);
         aimIndicator.transform.position = new Vector3(worldPosition.x, worldPosition.y, 0f);
-        
-        Vector3 directionToTarget = aimIndicator.transform.position - this.transform.position;
-		float angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
-		handController.AimHand(directionToTarget.normalized, angle);
+		handController.AimHand(aimIndicator.transform.position);
 	}
 
     private void FixedUpdate()
