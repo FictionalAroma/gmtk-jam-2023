@@ -163,4 +163,5 @@ public class ShipController : MonoBehaviour
     }
 
 	public void TakeDamage(int damage) => hullCurrentHp -= damage;
+    
 }
