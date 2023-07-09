@@ -1,6 +1,7 @@
 ﻿using Common;
 using CommonComponents.Interfaces;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 namespace Assets.Scripts.Player
 {
@@ -46,14 +47,15 @@ namespace Assets.Scripts.Player
 		}
 
 
-		public void Drop() => Drop(CurrentPickup);
-
-		public void Drop(Pickup item)
-		{
+		public void Drop()
+        {
 			_currentPickup = null;
-			item.Disconnect();
+			if (_currentPickup != null)
+			{
+				_currentPickup.Disconnect();
+				_currentPickup = null;
+			}
 		}
-
 		public void Pickup(Pickup pickup)
 		{
 			if (CurrentPickup == null)
@@ -67,7 +69,7 @@ namespace Assets.Scripts.Player
 
 		public void AimHand(Vector3 aimDir, float angle)
 		{
-			this.transform.localPosition = aimDir;
+			this.transform.SetLocalPositionAndRotation(aimDir, Quaternion.AngleAxis(angle, Vector3.forward));
 			if (_currentPickup != null)
 			{
 				_currentPickup.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);			}

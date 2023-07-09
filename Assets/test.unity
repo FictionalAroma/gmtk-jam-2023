@@ -238,7 +238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 203603892}
   - component: {fileID: 203603891}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Bay1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -597,7 +597,7 @@ GameObject:
   m_Component:
   - component: {fileID: 715403757}
   - component: {fileID: 715403756}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Bay2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -720,7 +720,7 @@ GameObject:
   - component: {fileID: 772429924}
   - component: {fileID: 772429922}
   - component: {fileID: 772429925}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -870,7 +870,7 @@ SphereCollider:
     m_Bits: 4096
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4087
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -1764,7 +1764,7 @@ GameObject:
   - component: {fileID: 1566146232}
   - component: {fileID: 1566146231}
   - component: {fileID: 1566146230}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: PowerPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2013,7 +2013,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1866411985}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Eject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2521,6 +2521,18 @@ PrefabInstance:
     - target: {fileID: 2458395133220459333, guid: 76384a32dce41414d94fe420e93439e0, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3185597583626592717, guid: 76384a32dce41414d94fe420e93439e0, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3185597583626592717, guid: 76384a32dce41414d94fe420e93439e0, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193805476686863109, guid: 76384a32dce41414d94fe420e93439e0, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 10240
       objectReference: {fileID: 0}
     - target: {fileID: 5872745793977558353, guid: 76384a32dce41414d94fe420e93439e0, type: 3}
       propertyPath: m_RootOrder
