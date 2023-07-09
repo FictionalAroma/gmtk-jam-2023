@@ -4893,7 +4893,7 @@ GameObject:
   - component: {fileID: 8395497302717302607}
   - component: {fileID: 1602585202673527846}
   m_Layer: 9
-  m_Name: Crack
+  m_Name: CrackHazard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

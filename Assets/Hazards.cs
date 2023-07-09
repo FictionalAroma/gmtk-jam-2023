@@ -19,7 +19,7 @@ public class Hazards : MonoBehaviour
     [SerializeField]GameObject[] fires;
     [SerializeField] HazardType hazardType;
     [SerializeField] GameObject metalCrack;
-    [SerializeField] bool hazardIsActive;
+    public bool hazardIsActive;
     AudioManager audioManager;
     [SerializeField]GameObject fireModel;
     [SerializeField] bool test;
