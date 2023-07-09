@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float grappleRetractionSpeed = 10f;
     [SerializeField] private float grappleRetractionDelay = .2f;
 	[SerializeField] private PlayerPickupController handController;
-
+	
     public bool isGrappleActive;
     private Camera _camera;
     private Vector2 previousAimInput;
@@ -22,16 +22,25 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rb;
     Vector3 toolDirection;
     AudioManager audioManager;
+    private bool isPaused;
 
     private void Awake()
     {
         inputReader.MoveEvent += HandleMove;
         inputReader.SecondaryFireEvent += HandleSecondaryFire;
         inputReader.AimEvent += HandleAim;
+        inputReader.PauseEvent += HandlePause;
 
         _rb = GetComponent<Rigidbody>();
 
     }
+
+    private void HandlePause(bool pause)
+    {
+	    isPaused = !isPaused;
+	    Time.timeScale = isPaused ? 0f : 1f;
+    }
+
     private void Start()
     {
         _camera = Camera.main;
@@ -92,6 +101,7 @@ public class PlayerController : MonoBehaviour
         Vector3 worldPosition = _camera.ScreenToWorldPoint(screenPosition);
         aimIndicator.transform.position = new Vector3(worldPosition.x, worldPosition.y, 0f);
 		handController.AimHand(aimIndicator.transform.position);
+		
 	}
 
     private void FixedUpdate()
