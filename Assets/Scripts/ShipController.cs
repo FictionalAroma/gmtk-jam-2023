@@ -1,4 +1,5 @@
 using System.Collections;
+using Assets.Scripts.Enviroment;
 using UnityEngine;
 
 public class ShipController : MonoBehaviour
@@ -25,6 +26,12 @@ public class ShipController : MonoBehaviour
     [SerializeField] int hullMaxHp;
     [SerializeField] int hullCurrentHp;
     AudioManager audioManager;
+
+    [Header("Power Point References")] 
+    [SerializeField] private PowerPoint enginesPowerPoint;
+    [SerializeField] private PowerPoint shieldsPowerPoint;
+    [SerializeField] private PowerPoint weaponsPowerPoint;
+
     // Start is called before the first frame update
     void Start()
     {

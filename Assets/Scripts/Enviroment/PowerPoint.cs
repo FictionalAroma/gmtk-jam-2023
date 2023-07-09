@@ -12,7 +12,7 @@ namespace Assets.Scripts.Enviroment
 	{
 		[SerializeField] protected List<PowerBay> bays;
 		[SerializeField] private Transform ejectPos;
-
+		[SerializeField] private PowerPointUIController uiController;
 
 		public bool UsePower(int amount)
 		{
@@ -45,6 +45,11 @@ namespace Assets.Scripts.Enviroment
 			}
 
 			return false;
+		}
+		
+		public void SetPowerPointEnergyValue(float value)
+		{
+			uiController.SetStatusBarValue(value);
 		}
 
 		private bool AddCell(PowerCell cell)

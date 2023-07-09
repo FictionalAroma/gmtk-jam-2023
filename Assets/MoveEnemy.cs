@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class MoveEnemy : MonoBehaviour
 {
+
+    [SerializeField] private float moveForce = 50f;
     private Rigidbody rb;
 
     private void Start()
@@ -24,6 +26,6 @@ public class MoveEnemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.AddForce(Vector3.back * 100f, ForceMode.Force);
+        rb.AddForce(Vector3.back * moveForce, ForceMode.Force);
     }
 }
