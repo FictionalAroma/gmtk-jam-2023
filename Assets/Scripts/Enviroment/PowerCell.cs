@@ -4,7 +4,7 @@ using UnityEngine;
 public class PowerCell : Pickup
 {
 	[SerializeField] public int maxPower = 100;
-	public int CurrentPower { get; private set; }
+	[SerializeField] public int CurrentPower = 100;
 
 	private void Awake()
 	{

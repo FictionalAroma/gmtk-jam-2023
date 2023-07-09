@@ -29,13 +29,23 @@ namespace Assets.Scripts.Enviroment
 
 		public bool UsePower(int power)
 		{
-			if (_attachedCell != null)
+			if (_attachedCell != null && _attachedCell.CurrentPower > 0)
 			{
 				_attachedCell.UsePower(power);
-				return false;
+				return true;
+			}
+			return false;
+		}
+
+		public bool Recharge(int amount)
+		{
+			if (_attachedCell != null && _attachedCell.CurrentPower < 100)
+			{
+				_attachedCell.Charge(amount);
+				return true;
 			}
 
-			return _attachedCell.CurrentPower > 0;
+			return false;
 		}
 	}
 }

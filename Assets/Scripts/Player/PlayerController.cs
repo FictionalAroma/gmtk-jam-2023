@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
 
             isGrappleActive = true;
         }
-        if (!shoot && isGrappleActive) 
+        if (!shoot) 
         {
 			grappleHookHead.StopGrappling();
 			isGrappleActive = false;
