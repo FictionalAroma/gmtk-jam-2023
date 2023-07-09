@@ -74,8 +74,7 @@ public class PlayerController : MonoBehaviour
         {
             if (isGrappleActive)
             {
-                StopGrappling();
-                isGrappleActive = false;
+                grappleHookHead.StopGrappling();
             }
         }
         
@@ -135,21 +134,11 @@ public class PlayerController : MonoBehaviour
         // Re-parent the hook when it's done retracting
         grappleHookHead.transform.parent = transform;
         grappleHookHead.GetComponent<BoxCollider>().enabled = true;
+        isGrappleActive = false;
+
     }
 
 
-    public void StopGrappling()
-    {
-        // Reset the grapple
-        grappleHookHead.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        grappleHookHead.transform.position = transform.position;
-
-        // Re-parent the hook immediately if it's not in use
-        grappleHookHead.transform.parent = transform;
-
-        // Remove the line
-        grappleHookHead.ClearLine();
-    }
 
 
     private void OnDestroy()
