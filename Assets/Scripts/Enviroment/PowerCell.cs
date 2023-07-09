@@ -28,13 +28,4 @@ public class PowerCell : Pickup
 		ClampResource();
 	}
 
-	public void EnablePhysics(bool enable)
-	{
-		GetComponent<Rigidbody>().isKinematic = !enable;
-		var colls = GetComponents<Collider>();
-		foreach (var coll in colls)
-		{
-			coll.enabled = enable;
-		}
-	}
 }
