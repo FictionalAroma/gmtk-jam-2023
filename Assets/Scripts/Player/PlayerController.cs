@@ -90,6 +90,7 @@ public class PlayerController : MonoBehaviour
 		{
 			var grappleDir = grappleHookHead.transform.position - transform.position;
 			_rb.AddForce(grappleDir * grappleHookHead.grappleHookPull, ForceMode.Force);
+            audioManager.PlayPlayerSFX(audioManager.playerAudioClips[AudioManager.PlayerAudioClips.grapplinghookSFX]);
 
 		}
 		else

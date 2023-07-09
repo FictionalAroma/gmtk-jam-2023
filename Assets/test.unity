@@ -257,6 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e233b841910c5cc488bfa349e59f6b1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attachedCell: {fileID: 0}
 --- !u!4 &203603892
 Transform:
   m_ObjectHideFlags: 0
@@ -605,6 +606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e233b841910c5cc488bfa349e59f6b1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attachedCell: {fileID: 0}
 --- !u!4 &715403757
 Transform:
   m_ObjectHideFlags: 0
@@ -2366,18 +2368,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5706858260640589152, guid: 9634b329ade4d804cbe61c46269a0479, type: 3}
-      propertyPath: sfxInnerClips.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5706858260640589152, guid: 9634b329ade4d804cbe61c46269a0479, type: 3}
-      propertyPath: sfxInnerClips.Array.data[4]
-      value: 
-      objectReference: {fileID: 8300000, guid: 2df378f81843dde44bee32a7b9f6949b, type: 3}
-    - target: {fileID: 5706858260640589152, guid: 9634b329ade4d804cbe61c46269a0479, type: 3}
-      propertyPath: sfxInnerClips.Array.data[5]
-      value: 
-      objectReference: {fileID: 8300000, guid: 8ba5c1332ce273e49ad90563ef2b5d4b, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
