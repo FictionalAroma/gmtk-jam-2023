@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
         if (shoot && !isGrappleActive)
         {
             // Unparent the hook while it is shooting
-            grappleHookHead.transform.parent = null;
+            grappleHookHead.transform.parent = this.transform.parent;
             Vector3 direction = (aimIndicator.transform.position - grappleHookHead.transform.position).normalized;
 			float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
 		if (grappleHookHead.IsConnected)
 		{
 			var grappleDir = grappleHookHead.transform.position - transform.position;
-			_rb.AddForce(grappleDir * grappleHookHead.grappleHookPower, ForceMode.Force);
+			_rb.AddForce(grappleDir * grappleHookHead.grappleHookPull, ForceMode.Force);
             audioManager.PlayPlayerSFX(audioManager.playerAudioClips[AudioManager.PlayerAudioClips.grapplinghookSFX]);
 
 		}
