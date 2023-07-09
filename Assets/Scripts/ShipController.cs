@@ -26,8 +26,9 @@ public class ShipController : MonoBehaviour
     [SerializeField] int hullMaxHp;
     [SerializeField] int hullCurrentHp;
     AudioManager audioManager;
-
-	[SerializeField] private PowerPoint shieldPower;
+    
+    [Header("Power Point References")]
+    [SerializeField] private PowerPoint shieldPower;
 	[SerializeField] private PowerPoint weaponPower;
 	[SerializeField] private PowerPoint thrustPower;
     // Start is called before the first frame update
