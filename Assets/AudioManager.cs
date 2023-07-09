@@ -9,6 +9,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] GameObject sfxOuterManager;
     [SerializeField] GameObject sfxInnerManager;
     [SerializeField] GameObject ambienceManager;
+    [SerializeField] GameObject playerSFXManager;
+    [SerializeField] AudioClip[] playerSFXClips;
     [SerializeField] AudioClip[] dialogueClips;
     [SerializeField] AudioClip[] sfxOuterClips;
     [SerializeField] AudioClip[] sfxInnerClips;
@@ -34,6 +36,11 @@ public class AudioManager : MonoBehaviour
         {
             sfxOuterManager.GetComponent<AudioSource>().PlayOneShot(sFX);
         }
+        else
+        {
+            sfxOuterManager.GetComponent<AudioSource>().Stop();
+            sfxOuterManager.GetComponent<AudioSource>().PlayOneShot(sFX);
+        }
    
     }
     public void PlayInnerSFX(AudioClip sFX)
@@ -41,6 +48,23 @@ public class AudioManager : MonoBehaviour
         if(!sfxInnerManager.GetComponent<AudioSource>().isPlaying)
         {
             sfxInnerManager.GetComponent<AudioSource>().PlayOneShot(sFX);
+        }
+        else
+        {
+            sfxInnerManager.GetComponent<AudioSource>().Stop();
+            sfxInnerManager.GetComponent<AudioSource>().PlayOneShot(sFX);
+        }
+    }
+    public void PlayPlayerSFX(AudioClip playerSFX)
+    {
+        if(!playerSFXManager.GetComponent<AudioSource>().isPlaying)
+        {
+            playerSFXManager.GetComponent<AudioSource>().PlayOneShot(playerSFX);
+        }
+        else
+        {
+            playerSFXManager.GetComponent<AudioSource>().Stop();
+            playerSFXManager.GetComponent<AudioSource>().PlayOneShot(playerSFX);
         }
     }
 }
