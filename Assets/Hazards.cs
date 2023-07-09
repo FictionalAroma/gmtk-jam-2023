@@ -10,7 +10,8 @@ public class Hazards : MonoBehaviour
         fire,
         metalCrack
     }
-    [SerializeField] int hazardHp;
+    [SerializeField] int hazardMaxHp;
+    [SerializeField] int hazardCurrentHp;
     ShipController shipController;
     [SerializeField] int hazardDamage;
     [SerializeField] float hazardCooldown;
@@ -19,14 +20,17 @@ public class Hazards : MonoBehaviour
     [SerializeField] HazardType hazardType;
     [SerializeField] GameObject metalCrack;
     [SerializeField] bool hazardIsActive;
-    GameObject crackModel;
-    GameObject fireModel;
+    AudioManager audioManager;
+    [SerializeField]GameObject fireModel;
     // Start is called before the first frame update
+
     void Start()
     {
         hazardCooldownTimer = hazardCooldown;
-        
+        hazardCurrentHp = hazardMaxHp;
+        hazardIsActive = false;
         shipController = FindObjectOfType<ShipController>();
+        audioManager = FindObjectOfType(typeof(AudioManager)) as AudioManager;
     }
 
     // Update is called once per frame
@@ -35,37 +39,62 @@ public class Hazards : MonoBehaviour
         if (hazardIsActive)
         {
             hazardCooldownTimer -= Time.deltaTime;
-            if (hazardHp <= 0)
+            if (hazardCurrentHp <= 0)
             {
-                hazardIsActive = false;
-                
+
+                DeactivateHazard();
             }
             if (hazardCooldownTimer <= 0)
             {
-                shipController.TakeDamage(hazardDamage);
-                hazardCooldownTimer = hazardCooldown;
+                if (shipController != null)
+                {
+                    shipController.TakeDamage(hazardDamage);
+                    hazardCooldownTimer = hazardCooldown;
+                }
+                
             }
         }
         
     }
+    private void DeactivateHazard()
+    {
+        if(hazardType == HazardType.fire)
+        {
+            fireModel.SetActive(false);
+            this.GetComponent<Collider>().enabled = false;
+            hazardIsActive = false;
+        }
+        if (hazardType == HazardType.metalCrack)
+        {
+            metalCrack.SetActive(false);
+            this.GetComponent<Collider>().enabled=false;
+            hazardIsActive = false;
+        }
+    }
+
     public void ActivateHazard()
     {
         if (hazardType == HazardType.fire)
         {
             fireModel = fires[Random.Range(0, fires.Length)];
             fireModel.SetActive(true);
+            this.GetComponent<Collider>().enabled = true;
+            hazardIsActive=true;
         }
         else
         {
-            crackModel.SetActive(true);
-            crackModel.transform.parent = this.transform;
+            metalCrack.SetActive(true);
+            metalCrack.transform.parent = this.transform;
+            this.GetComponent<Collider>().enabled = true;
+            hazardIsActive = true;
         }
     }
     private void OnParticleCollision(GameObject other)
     {
+        Debug.Log(other);
         if ((hazardType == HazardType.fire&&other.CompareTag("FireExtinguisher")) || (hazardType == HazardType.metalCrack&& other.CompareTag("Welder")))
         {
-            hazardHp -= 1;
+            hazardCurrentHp -= 1;
         }
     }
 }

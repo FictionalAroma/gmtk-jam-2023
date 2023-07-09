@@ -13,13 +13,13 @@ GameObject:
   - component: {fileID: 6162983664010309906}
   - component: {fileID: 6396076673988033091}
   - component: {fileID: 3627748043956828376}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CrackModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6154782960859676393
 Transform:
   m_ObjectHideFlags: 0
@@ -4892,7 +4892,7 @@ GameObject:
   - component: {fileID: 8627803629864007441}
   - component: {fileID: 8395497302717302607}
   - component: {fileID: 1602585202673527846}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Crack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4932,10 +4932,10 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 8.64, y: 2.6959438, z: 5.1899996}
-  m_Center: {x: -0.0045480104, y: -1.0651433, z: 0.12221799}
+  m_Size: {x: 10.120164, y: 2.6959436, z: 6.197547}
+  m_Center: {x: -0.7446338, y: -1.0651432, z: -0.38155684}
 --- !u!114 &1602585202673527846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4948,9 +4948,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80a5d4f81c3a6dd41b315eeffa1817a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hazardHp: 0
-  hazardDamage: 0
-  hazardCooldown: 0
+  hazardMaxHp: 300
+  hazardCurrentHp: 0
+  hazardDamage: 1
+  hazardCooldown: 1
   fires: []
   hazardType: 1
   metalCrack: {fileID: 5338807483322054347}
+  hazardIsActive: 0
+  fireModel: {fileID: 5338807483322054347}

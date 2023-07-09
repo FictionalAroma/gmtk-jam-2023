@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 dir;
     private Rigidbody _rb;
     Vector3 toolDirection;
+    AudioManager audioManager;
 
     private void Awake()
     {
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
     {
         _camera = Camera.main;
         grappleHookHead.ClearLine();
+        audioManager = FindObjectOfType(typeof(AudioManager)) as AudioManager;
     }
 
     #region Handle Input Events
