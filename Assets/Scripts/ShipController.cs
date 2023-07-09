@@ -22,12 +22,13 @@ public class ShipController : MonoBehaviour
     Vector2 direction;
     float yThrow;
     float xThrow;
-    [SerializeField] int hullDamage;
+    [SerializeField] int hullMaxHp;
+    [SerializeField] int hullCurrentHp;
     // Start is called before the first frame update
     void Start()
     {
 
-
+        hullCurrentHp = hullMaxHp;
         skyboxController = FindObjectOfType<SkyboxController>();
     }
 
@@ -155,6 +156,6 @@ public class ShipController : MonoBehaviour
     }
     public void TakeDamage(int damage)
     {
-
+        hullCurrentHp = -damage;
     }
 }
