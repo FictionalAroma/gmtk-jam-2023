@@ -73,6 +73,15 @@ namespace Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""e241b9f3-6638-469d-b1d5-c0f6ef6a0b4d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -216,6 +225,17 @@ namespace Input
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""11a073c3-5f28-4f0f-ac82-cb01b6e4500e"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -808,6 +828,7 @@ namespace Input
             m_Player_SecondaryFire = m_Player.FindAction("SecondaryFire", throwIfNotFound: true);
             m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
             m_Player_Action = m_Player.FindAction("Action", throwIfNotFound: true);
+            m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -886,6 +907,7 @@ namespace Input
         private readonly InputAction m_Player_SecondaryFire;
         private readonly InputAction m_Player_Look;
         private readonly InputAction m_Player_Action;
+        private readonly InputAction m_Player_Pause;
         public struct PlayerActions
         {
             private @Controls m_Wrapper;
@@ -895,6 +917,7 @@ namespace Input
             public InputAction @SecondaryFire => m_Wrapper.m_Player_SecondaryFire;
             public InputAction @Look => m_Wrapper.m_Player_Look;
             public InputAction @Action => m_Wrapper.m_Player_Action;
+            public InputAction @Pause => m_Wrapper.m_Player_Pause;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -919,6 +942,9 @@ namespace Input
                 @Action.started += instance.OnAction;
                 @Action.performed += instance.OnAction;
                 @Action.canceled += instance.OnAction;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -938,6 +964,9 @@ namespace Input
                 @Action.started -= instance.OnAction;
                 @Action.performed -= instance.OnAction;
                 @Action.canceled -= instance.OnAction;
+                @Pause.started -= instance.OnPause;
+                @Pause.performed -= instance.OnPause;
+                @Pause.canceled -= instance.OnPause;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1125,6 +1154,7 @@ namespace Input
             void OnSecondaryFire(InputAction.CallbackContext context);
             void OnLook(InputAction.CallbackContext context);
             void OnAction(InputAction.CallbackContext context);
+            void OnPause(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

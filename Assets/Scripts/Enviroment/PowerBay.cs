@@ -1,26 +1,41 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Assets.Scripts.Enviroment
 {
     public class PowerBay : MonoBehaviour
 	{
-		private PowerCell _attachedCell = null;
+		[SerializeField] private PowerCell attachedCell = null;
 
-		public bool HasCell => _attachedCell != null;
-		public int CellPower => _attachedCell != null ? _attachedCell.CurrentPower : 0;
+		public bool HasCell => attachedCell != null;
+		public int CellPower => attachedCell != null ? attachedCell.CurrentPower : 0;
+
+		private void Start()
+		{
+			if (attachedCell != null)
+			{
+				PlugIn(attachedCell);
+			}
+		}
 
 		public void PlugIn(PowerCell newCell)
 		{
-			_attachedCell = newCell;
+			attachedCell = newCell;
+
+			newCell.EnablePhysics(false);
+			var transform1 = transform;
+			newCell.transform.SetPositionAndRotation(transform1.position, transform1.rotation);
+
 		}
 
 		public PowerCell Eject()
 		{
 
-			if (_attachedCell)
+			if (attachedCell)
 			{
-				var cell = _attachedCell;
-				_attachedCell = null;
+				var cell = attachedCell;
+				attachedCell = null;
 				return cell;
 			}
 
@@ -29,9 +44,9 @@ namespace Assets.Scripts.Enviroment
 
 		public bool UsePower(int power)
 		{
-			if (_attachedCell != null && _attachedCell.CurrentPower > 0)
+			if (attachedCell != null && attachedCell.CurrentPower > 0)
 			{
-				_attachedCell.UsePower(power);
+				attachedCell.UsePower(power);
 				return true;
 			}
 			return false;
@@ -39,9 +54,9 @@ namespace Assets.Scripts.Enviroment
 
 		public bool Recharge(int amount)
 		{
-			if (_attachedCell != null && _attachedCell.CurrentPower < 100)
+			if (attachedCell != null && attachedCell.CurrentPower < 100)
 			{
-				_attachedCell.Charge(amount);
+				attachedCell.Charge(amount);
 				return true;
 			}
 

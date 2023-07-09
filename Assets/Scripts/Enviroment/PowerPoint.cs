@@ -64,9 +64,6 @@ namespace Assets.Scripts.Enviroment
 		private void PluginCell(PowerBay bay, PowerCell cell)
 		{
 			bay.PlugIn(cell);
-			cell.EnablePhysics(false);
-			var transform1 = bay.transform;
-			cell.transform.SetPositionAndRotation(transform1.position, transform1.rotation);
 		}
 
 		protected void EjectCell(PowerBay bay)

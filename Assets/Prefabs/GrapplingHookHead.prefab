@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3661591971174053291}
   - component: {fileID: 3524008965728083533}
   - component: {fileID: 4317403607014584783}
+  - component: {fileID: -3883453746914159136}
   m_Layer: 6
   m_Name: GrapplingHookHead
   m_TagString: Untagged
@@ -254,3 +255,16 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &-3883453746914159136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395745410973700746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39d3724e00076834a967b4dac1e37804, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeStateList: 00000000
