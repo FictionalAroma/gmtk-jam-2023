@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float grappleRetractionSpeed = 10f;
     [SerializeField] private float grappleRetractionDelay = .2f;
 	[SerializeField] private PlayerPickupController handController;
-	
+    [SerializeField] private ParticleSystem jetpack;
     public bool isGrappleActive;
     private Camera _camera;
     private Vector2 previousAimInput;
@@ -57,10 +57,12 @@ public class PlayerController : MonoBehaviour
         {
             audioManager.StopPlayerSFX();
             audioManager.PlayPlayerSFX(audioManager.playerAudioClips[AudioManager.PlayerAudioClips.jetpackSFX]);
+            jetpack.Play();
         }
         else
         {
             audioManager.StopPlayerSFX();
+            jetpack.Stop();
         }
     }
 
