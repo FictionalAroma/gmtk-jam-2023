@@ -1,7 +1,5 @@
 using System;
-using CommonComponents.Interfaces;
 using Input;
-using Management;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
