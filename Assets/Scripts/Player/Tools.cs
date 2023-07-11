@@ -1,14 +1,19 @@
 using Common;
 using UnityEngine;
 
-public class Tools : Pickup
+public class Tools : Pickup , IVocal
 {
-    AudioManager audioManager;
+  
     ParticleSystem _toolParticle;
+    public AudioClip[] AudioClips { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public AudioSource AudioSource { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public AudioClip ChosenClip { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public float Volume { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
     // Start is called before the first frame update
     void Start()
     {
-        audioManager = FindObjectOfType(typeof(AudioManager)) as AudioManager;
+       
         _toolParticle = GetComponent<ParticleSystem>();
     }
 	public override void Use()
@@ -17,19 +22,38 @@ public class Tools : Pickup
         _toolParticle.Play();
         if (this.tag =="Welder")
         {
-            audioManager.StopPlayerSFX();
-            audioManager.PlayPlayerSFX(audioManager.playerAudioClips[AudioManager.PlayerAudioClips.weldingSFX]);
+            PlaySound();
         }
         else
         {
             //audioManager.StopPlayerSFX();
-            audioManager.PlayPlayerSFX(audioManager.playerAudioClips[AudioManager.PlayerAudioClips.fireExtinguisherSFX]);
+            StopSound();
         }
         
     }
     public override void StopUse()
     {
         _toolParticle.Stop();
-        audioManager.StopPlayerSFX();
+        
+    }
+
+    public void PlaySound()
+    {
+
+        for (int i = 0; i < AudioClips.Length; i++)
+        {
+            if (AudioClips[i].name == ChosenClip.name)
+            {
+                AudioSource.clip = AudioClips[i];
+            }
+        }
+        AudioSource.Play();
+
+
+    }
+
+    public void StopSound()
+    {
+        AudioSource.Stop();
     }
 }

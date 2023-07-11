@@ -9,6 +9,8 @@ TagManager:
   - FxTemporaire
   - Welder
   - FireExtinguisher
+  - TestOld
+  - TestNew
   layers:
   - Default
   - TransparentFX

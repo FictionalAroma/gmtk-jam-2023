@@ -3,7 +3,7 @@ using Assets.Scripts.Enviroment;
 using UnityEditor;
 using UnityEngine;
 
-public class ShipController : MonoBehaviour
+public class ShipController : MonoBehaviour,IDamageable
 {
     SkyboxController skyboxController;
     public float dodgePower;
@@ -24,22 +24,26 @@ public class ShipController : MonoBehaviour
     Vector2 direction;
     float yThrow;
     float xThrow;
-    [SerializeField] int hullMaxHp;
-    [SerializeField] int hullCurrentHp;
-    AudioManager audioManager;
-    
     [Header("Power Point References")]
     [SerializeField] private PowerPoint shieldPower;
 	[SerializeField] private PowerPoint weaponPower;
 	[SerializeField] private PowerPoint thrustPower;
     [SerializeField] GameObject youloseText;
+
+    public int CurrentHealth { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public int MaxHealth { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public AudioClip[] AudioClips { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public AudioSource AudioSource { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public AudioClip ChosenClip { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public float Volume { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
     // Start is called before the first frame update
     void Start()
     {
         youloseText.SetActive (false);
-        hullCurrentHp = hullMaxHp;
-        audioManager = FindObjectOfType(typeof(AudioManager)) as AudioManager;
-        hullCurrentHp = hullMaxHp;
+        CurrentHealth = MaxHealth;
+       
+        CurrentHealth = MaxHealth;
         skyboxController = FindObjectOfType<SkyboxController>();
     }
 
@@ -76,7 +80,7 @@ public class ShipController : MonoBehaviour
             
         }
         ProcessRotation();
-        if (hullCurrentHp<=0)
+        if (CurrentHealth<=0)
         {
             Time.timeScale = 0;
             youloseText.SetActive(true);
@@ -171,6 +175,15 @@ public class ShipController : MonoBehaviour
         Debug.Log(collision.gameObject.tag);
     }
 
-	public void TakeDamage(int damage) => hullCurrentHp -= damage;
-    
+	public void TakeDamage(int damage) => CurrentHealth -= damage;
+
+    public void PlaySound()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void StopSound()
+    {
+        throw new System.NotImplementedException();
+    }
 }

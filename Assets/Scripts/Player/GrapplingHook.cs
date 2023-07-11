@@ -13,7 +13,12 @@ public class GrapplingHook : MonoBehaviour
 	private Collider _collider;
 	public bool IsConnected => _joint != null;
 
-	private void Awake()
+    public AudioClip[] AudioClips { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public AudioSource AudioSource { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public AudioClip ChosenClip { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public float Volume { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
+    private void Awake()
 	{
 		_rb = GetComponent<Rigidbody>();
 		_collider = GetComponent<Collider>();
@@ -35,11 +40,12 @@ public class GrapplingHook : MonoBehaviour
 	public void Shoot(Vector3 directionToTarget, float angle)
 	{
 		this.gameObject.SetActive(true);
-
+		PlaySound();
 		transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
 		_rb.AddForce(directionToTarget * grappleHookPower, ForceMode.Impulse);
 		_collider.enabled = true;
+		StopSound();
 	}
 	
 	void Update() 
@@ -95,4 +101,24 @@ public class GrapplingHook : MonoBehaviour
 			Connect(collision.gameObject.GetComponent<Rigidbody>());
 		}
 	}
+
+    public void PlaySound()
+    {
+
+        for (int i = 0; i < AudioClips.Length; i++)
+        {
+            if (AudioClips[i].name == ChosenClip.name)
+            {
+                AudioSource.clip = AudioClips[i];
+            }
+        }
+        AudioSource.Play();
+
+
+    }
+
+    public void StopSound()
+    {
+        AudioSource.Stop();
+    }
 }
