@@ -5,22 +5,30 @@ public class PlayerController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private InputReader inputReader;
-
     [SerializeField] private float playerspeed = 10f;
+    private Vector2 previousAimInput;
+    private Vector2 currentMovementInput;
+    private Rigidbody _rb;
+
+    [Header("Grappling and Tools")]
     [SerializeField] private GrapplingHook grappleHookHead;
+    private Vocal grapplingHookSFX;
     [SerializeField] GameObject aimIndicator;
     [SerializeField] private float grappleRetractionSpeed = 10f;
     [SerializeField] private float grappleRetractionDelay = .2f;
 	[SerializeField] private PlayerPickupController handController;
-    [SerializeField] private ParticleSystem jetpack;
     public bool isGrappleActive;
+
+    [Header("Jetpack")]
+    [SerializeField] private ParticleSystem jetpack;
+    private Vocal jetpackSFX;
+
     private Camera _camera;
-    private Vector2 previousAimInput;
-    private Vector2 currentMovementInput;
+    
     private Vector3 dir;
-    private Rigidbody _rb;
+    
     Vector3 toolDirection;
-    AudioManager audioManager;
+    
     private bool isPaused;
 
     private void Awake()
@@ -44,7 +52,8 @@ public class PlayerController : MonoBehaviour
     {
         _camera = Camera.main;
         grappleHookHead.ClearLine();
-		audioManager = FindObjectOfType<AudioManager>();
+		grapplingHookSFX = grappleHookHead.GetComponent<Vocal>();
+        jetpackSFX = grappleHookHead.GetComponent<Vocal>();
         if (handController.GetComponent<LineRenderer>() != null)
         {
 
@@ -65,13 +74,13 @@ public class PlayerController : MonoBehaviour
         currentMovementInput = moveVector;
         if (moveVector != Vector2.zero)
         {
-            audioManager.StopPlayerSFX();
-            audioManager.PlayPlayerSFX(audioManager.playerAudioClips[AudioManager.PlayerAudioClips.jetpackSFX]);
+
+            jetpackSFX.PlaySound();
             jetpack.Play();
         }
         else
         {
-            audioManager.StopPlayerSFX();
+            jetpackSFX.StopSound();
             jetpack.Stop();
         }
     }
@@ -108,7 +117,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        Vector3 screenPosition = new Vector3(previousAimInput.x, previousAimInput.y, _camera.nearClipPlane);
+        Vector3 screenPosition = new(previousAimInput.x, previousAimInput.y, _camera.nearClipPlane);
         Vector3 worldPosition = _camera.ScreenToWorldPoint(screenPosition);
         aimIndicator.transform.position = new Vector3(worldPosition.x, worldPosition.y, 0f);
 		handController.AimHand(aimIndicator.transform.position);
@@ -127,7 +136,7 @@ public class PlayerController : MonoBehaviour
 		{
 			var grappleDir = grappleHookHead.transform.position - transform.position;
 			_rb.AddForce(grappleDir * grappleHookHead.grappleHookPull, ForceMode.Force);
-            audioManager.PlayPlayerSFX(audioManager.playerAudioClips[AudioManager.PlayerAudioClips.grapplinghookSFX]);
+            grapplingHookSFX.PlaySound();
 
 		}
 		else

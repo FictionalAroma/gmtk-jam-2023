@@ -47,7 +47,7 @@ public class ChangeTagOrLayer : EditorWindow
         var tags = new List<GameObject>();
         var layers = new List<GameObject>();
         var objectstoAdd = FindObjectsOfType<GameObject>();
-        switch (index)
+        switch (choice)
         {
              
             case 0:

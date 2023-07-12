@@ -1,7 +1,7 @@
 using Common;
 using UnityEngine;
 
-public class Tools : Pickup , IVocal
+public class Tools : Pickup
 {
   
     ParticleSystem _toolParticle;
@@ -20,7 +20,7 @@ public class Tools : Pickup , IVocal
     {
 
         _toolParticle.Play();
-        if (this.tag =="Welder")
+        if (this.CompareTag("Welder"))
         {
             PlaySound();
         }

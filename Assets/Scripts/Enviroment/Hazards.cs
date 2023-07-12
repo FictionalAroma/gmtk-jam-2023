@@ -18,7 +18,7 @@ public class Hazards : MonoBehaviour
     [SerializeField] HazardType hazardType;
     [SerializeField] GameObject metalCrack;
     public bool hazardIsActive;
-    AudioManager audioManager;
+    private Vocal hazardSFX;
     [SerializeField]GameObject fireModel;
     [SerializeField] bool test;
     // Start is called before the first frame update
@@ -29,7 +29,8 @@ public class Hazards : MonoBehaviour
         hazardCurrentHp = hazardMaxHp;
         hazardIsActive = false;
         shipController = FindObjectOfType<ShipController>();
-        audioManager = FindObjectOfType(typeof(AudioManager)) as AudioManager;
+        hazardSFX = GetComponent<Vocal>();
+        
     }
 
     // Update is called once per frame
@@ -78,7 +79,7 @@ public class Hazards : MonoBehaviour
             this.GetComponent<Collider>().enabled=false;
             hazardIsActive = false;
         }
-        audioManager.StopInnerSFX();
+        hazardSFX.StopSound();
     }
 
     public void ActivateHazard()
@@ -87,18 +88,19 @@ public class Hazards : MonoBehaviour
         {
             fireModel = fires[Random.Range(0, fires.Length)];
             fireModel.SetActive(true);
-            this.GetComponent<Collider>().enabled = true;
-            hazardIsActive=true;
-            audioManager.PlayInnerSFX(audioManager.innerAudioClips[AudioManager.InnerAudioClip.fireSFX]);
+         
+            
         }
         else
         {
             metalCrack.SetActive(true);
             metalCrack.transform.parent = this.transform;
-            this.GetComponent<Collider>().enabled = true;
-            hazardIsActive = true;
-            audioManager.PlayInnerSFX(audioManager.innerAudioClips[AudioManager.InnerAudioClip.metalCrackSFX]);
+            
+            
         }
+        this.GetComponent<Collider>().enabled = true;
+        hazardIsActive = true;
+        hazardSFX.PlaySound();
     }
     private void OnParticleCollision(GameObject other)
     {
