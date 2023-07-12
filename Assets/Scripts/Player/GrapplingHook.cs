@@ -13,10 +13,9 @@ public class GrapplingHook : MonoBehaviour
 	private Collider _collider;
 	public bool IsConnected => _joint != null;
 
-    public AudioClip[] AudioClips { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    public AudioSource AudioSource { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    public AudioClip ChosenClip { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    public float Volume { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+	[SerializeField] private Vocal grapplinghookSFX;
+	
+	
 
     private void Awake()
 	{
@@ -26,6 +25,7 @@ public class GrapplingHook : MonoBehaviour
 
 	private void Start()
 	{
+		grapplinghookSFX = GetComponent<Vocal>();
 		_player = FindObjectOfType<PlayerController>();
 		StopGrappling();
 		if (lineRenderer != null) 
@@ -40,12 +40,12 @@ public class GrapplingHook : MonoBehaviour
 	public void Shoot(Vector3 directionToTarget, float angle)
 	{
 		this.gameObject.SetActive(true);
-		PlaySound();
+		grapplinghookSFX.PlaySound();
 		transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
 		_rb.AddForce(directionToTarget * grappleHookPower, ForceMode.Impulse);
 		_collider.enabled = true;
-		StopSound();
+		
 	}
 	
 	void Update() 
@@ -77,7 +77,7 @@ public class GrapplingHook : MonoBehaviour
 		// Reset the grapple
 		_rb.velocity = Vector3.zero;
 		this.transform.position = _player.transform.position;
-
+		grapplinghookSFX.StopSound();
 		// Re-parent the hook immediately if it's not in use
 		this.transform.parent = _player.transform;
 
@@ -102,23 +102,5 @@ public class GrapplingHook : MonoBehaviour
 		}
 	}
 
-    public void PlaySound()
-    {
-
-        for (int i = 0; i < AudioClips.Length; i++)
-        {
-            if (AudioClips[i].name == ChosenClip.name)
-            {
-                AudioSource.clip = AudioClips[i];
-            }
-        }
-        AudioSource.Play();
-
-
-    }
-
-    public void StopSound()
-    {
-        AudioSource.Stop();
-    }
+   
 }

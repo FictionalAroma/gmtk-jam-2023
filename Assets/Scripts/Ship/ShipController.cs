@@ -11,10 +11,10 @@ public class ShipController : MonoBehaviour,IDamageable
     //[SerializeField] BoxCollider[] colliders;
     [Tooltip("how far the ship moves on x axis")][SerializeField] float xRange = 5f;
     [Tooltip("how far the ship moves on y axis")][SerializeField] float yRange = 3.5f;
-    Vector2 dodgeTopRight = new Vector2 (-1, -1);
-    Vector2 dodgeTopLeft = new Vector2 (1, -1);
-    Vector2 dodgeBotRight = new Vector2 (-1, 1);
-    Vector2 dodgeBotLeft = new Vector2 (1, 1);
+    Vector2 dodgeTopRight = new(-1, -1);
+    Vector2 dodgeTopLeft = new(1, -1);
+    Vector2 dodgeBotRight = new(-1, 1);
+    Vector2 dodgeBotLeft = new(1, 1);
     [SerializeField] float positionPitchFactor = 2f;
     [SerializeField] float positionRollFactor = -5f;
     [SerializeField] float ControlPitchFactor = -10f;
@@ -30,12 +30,11 @@ public class ShipController : MonoBehaviour,IDamageable
 	[SerializeField] private PowerPoint thrustPower;
     [SerializeField] GameObject youloseText;
 
+    private Vocal shipSFX;
+
     public int CurrentHealth { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
     public int MaxHealth { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    public AudioClip[] AudioClips { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    public AudioSource AudioSource { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    public AudioClip ChosenClip { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    public float Volume { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    
 
     // Start is called before the first frame update
     void Start()
@@ -45,6 +44,7 @@ public class ShipController : MonoBehaviour,IDamageable
        
         CurrentHealth = MaxHealth;
         skyboxController = FindObjectOfType<SkyboxController>();
+        shipSFX = GetComponent<Vocal>();
     }
 
     // Update is called once per frame
