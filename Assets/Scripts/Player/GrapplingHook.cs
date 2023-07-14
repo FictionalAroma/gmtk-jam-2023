@@ -21,7 +21,7 @@ public class GrapplingHook : MonoBehaviour
 
     private void Awake()
 	{
-		_rb = GetComponent<Rigidbody>();
+		
 		_collider = GetComponent<Collider>();
 	}
 
@@ -48,8 +48,8 @@ public class GrapplingHook : MonoBehaviour
 		currentHand = ChooseClosestHand(hookHit);
         currentHand.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         _rb = currentHand.GetComponent<Rigidbody>();
-        _joint = currentHand.GetComponent<FixedJoint>();
-		Disconnect();
+        Disconnect();
+        _joint = currentHand.AddComponent<FixedJoint>();
         _rb.AddForce(direction * grappleHookPower, ForceMode.Impulse);
 		_collider.enabled = true;
 		
@@ -96,11 +96,12 @@ public class GrapplingHook : MonoBehaviour
 
 	public void Disconnect()
     {
-		_joint.connectedBody = null;
+		Destroy(_joint);
+		_joint = null ;
         
 		
     }
-
+	
     private void OnCollisionEnter(Collision collision)
 	{
 		if (collision.gameObject.CompareTag("Hookable"))
