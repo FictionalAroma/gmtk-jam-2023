@@ -11,6 +11,8 @@ public class GrapplingHook : MonoBehaviour
 	Joint _joint;
 	private Rigidbody _rb;
 	private Collider _collider;
+	[SerializeField] private GameObject[] hands;
+	[SerializeField] private GameObject currentHand;
 	public bool IsConnected => _joint != null;
 
 	[SerializeField] private Vocal grapplinghookSFX;
@@ -37,13 +39,18 @@ public class GrapplingHook : MonoBehaviour
 		}
 	}
 
-	public void Shoot(Vector3 directionToTarget, float angle)
+	public void Shoot(Vector3 hookHit, float angle, Vector3 direction)
 	{
+		
 		this.gameObject.SetActive(true);
 		grapplinghookSFX.PlaySound();
-		transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
-		_rb.AddForce(directionToTarget * grappleHookPower, ForceMode.Impulse);
+		
+		currentHand = ChooseClosestHand(hookHit);
+        currentHand.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        _rb = currentHand.GetComponent<Rigidbody>();
+        _joint = currentHand.GetComponent<FixedJoint>();
+		Disconnect();
+        _rb.AddForce(direction * grappleHookPower, ForceMode.Impulse);
 		_collider.enabled = true;
 		
 	}
@@ -65,7 +72,7 @@ public class GrapplingHook : MonoBehaviour
 	}
     public void Connect(Rigidbody actor)
     {
-        _joint = gameObject.AddComponent<FixedJoint>();
+        
         _joint.connectedBody = actor;
         _joint.connectedMassScale = 0f;
 
@@ -76,10 +83,10 @@ public class GrapplingHook : MonoBehaviour
 	{
 		// Reset the grapple
 		_rb.velocity = Vector3.zero;
-		this.transform.position = _player.transform.position;
+		currentHand.transform.position = _player.transform.position;
 		grapplinghookSFX.StopSound();
 		// Re-parent the hook immediately if it's not in use
-		this.transform.parent = _player.transform;
+		currentHand.transform.parent = _player.transform;
 
 		// Remove the line
 		ClearLine();
@@ -89,8 +96,8 @@ public class GrapplingHook : MonoBehaviour
 
 	public void Disconnect()
     {
-        Destroy(_joint);
-        _joint = null;
+		_joint.connectedBody = null;
+        
 		
     }
 
@@ -99,6 +106,36 @@ public class GrapplingHook : MonoBehaviour
 		if (collision.gameObject.CompareTag("Hookable"))
 		{
 			Connect(collision.gameObject.GetComponent<Rigidbody>());
+		}
+	}
+
+	private GameObject ChooseClosestHand(Vector3 hookPosition)
+	{
+		float distance1 = 0;
+		float distance2 = 0;
+
+		foreach (GameObject hand in hands)
+		{
+			float distance = Vector3.Distance(hookPosition, hand.transform.position);
+			if (hands[0])
+			{
+				distance1 = distance;
+			}
+			else
+			{
+				distance2 = distance;
+			}
+		}
+
+		if (distance1>distance2)
+		{
+			Debug.Log(hands[0]);
+			return hands[0];
+		}
+		else
+		{
+			Debug.Log(hands[1]);
+			return hands[1];
 		}
 	}
 

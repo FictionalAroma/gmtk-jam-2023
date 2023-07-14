@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 previousAimInput;
     private Vector2 currentMovementInput;
     private Rigidbody _rb;
+    
 
     [Header("Grappling and Tools")]
     [SerializeField] private GrapplingHook grappleHookHead;
@@ -92,12 +93,20 @@ public class PlayerController : MonoBehaviour
         {
             // Unparent the hook while it is shooting
             grappleHookHead.transform.parent = this.transform.parent;
+
             Vector3 direction = (aimIndicator.transform.position - grappleHookHead.transform.position).normalized;
-			float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            RaycastHit hookHit;
+            Debug.DrawRay(this.transform.position, direction, Color.green,2f);
+            if (Physics.Raycast(this.transform.position, direction, out hookHit, Mathf.Infinity, LayerMask.NameToLayer("ShipWalls")))
+            {
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-            grappleHookHead.Shoot(direction, angle);
+                grappleHookHead.Shoot(hookHit.point, angle, direction);
 
-            isGrappleActive = true;
+                isGrappleActive = true;
+            }
+            
+            
         }
         if (!shoot) 
         {
