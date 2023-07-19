@@ -1,7 +1,9 @@
 using UnityEngine;
 
-public class GrapplingHook : MonoBehaviour
+public class Grappling : MonoBehaviour
 {
+	
+
     // Start is called before the first frame update
     public float grappleHookPower;
     public float grappleHookPull;
