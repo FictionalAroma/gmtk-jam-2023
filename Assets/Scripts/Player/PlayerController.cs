@@ -1,4 +1,5 @@
 using Assets.Scripts.Player;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -12,7 +13,7 @@ public class PlayerController : MonoBehaviour
     
 
     [Header("Grappling and Tools")]
-    [SerializeField] private GrapplingHook grappleHookHead;
+    [SerializeField] private Grappling grappling;
     private Vocal grapplingHookSFX;
     [SerializeField] GameObject aimIndicator;
     [SerializeField] private float grappleRetractionSpeed = 10f;
@@ -52,9 +53,9 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _camera = Camera.main;
-        grappleHookHead.ClearLine();
-		grapplingHookSFX = grappleHookHead.GetComponent<Vocal>();
-        jetpackSFX = grappleHookHead.GetComponent<Vocal>();
+        grappling.ClearLine();
+		grapplingHookSFX = grappling.GetComponent<Vocal>();
+        jetpackSFX = grappling.GetComponent<Vocal>();
         if (handController.GetComponent<LineRenderer>() != null)
         {
 
@@ -92,25 +93,14 @@ public class PlayerController : MonoBehaviour
         if (shoot && !isGrappleActive)
         {
             // Unparent the hook while it is shooting
-            grappleHookHead.transform.parent = this.transform.parent;
+            //Move all to Grappling
 
-            Vector3 direction = (aimIndicator.transform.position - grappleHookHead.transform.position).normalized;
-            RaycastHit hookHit;
-            Debug.DrawRay(this.transform.position, direction, Color.green,2f);
-            if (Physics.Raycast(this.transform.position, direction, out hookHit, Mathf.Infinity, LayerMask.NameToLayer("ShipWalls")))
-            {
-                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-                grappleHookHead.Shoot(hookHit.point, angle, direction);
-
-                isGrappleActive = true;
-            }
-            
-            
+            Vector3 direction = (aimIndicator.transform.position - this.transform.position).normalized;
+            grappling.ShootHookRayCast(direction);
         }
         if (!shoot) 
         {
-			grappleHookHead.StopGrappling();
+			grappling.StopGrappling();
 			isGrappleActive = false;
 		}
         
@@ -141,18 +131,18 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-		if (grappleHookHead.IsConnected)
-		{
-			var grappleDir = grappleHookHead.transform.position - transform.position;
-			_rb.AddForce(grappleDir * grappleHookHead.grappleHookPull, ForceMode.Force);
-            grapplingHookSFX.PlaySound();
 
-		}
-		else
-		{
-			_rb.AddForce(currentMovementInput * playerspeed, ForceMode.Force);
-		}
+    
+    
+	    _rb.AddForce(currentMovementInput * playerspeed, ForceMode.Force);
+		
 	}
+    public void PullToHook(GameObject hook)
+    {
+        var grappleDir = hook.transform.position - transform.position;
+        _rb.AddForce(grappleDir * grappling.grappleHookPull, ForceMode.Impulse);
+        grapplingHookSFX.PlaySound();
+    }
 
 	private void OnDestroy()
     {        

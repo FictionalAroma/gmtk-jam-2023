@@ -48,7 +48,7 @@ public class Hazards : MonoBehaviour
             {
                 if (shipController != null)
                 {
-                    shipController.TakeDamage(hazardDamage);
+                    //shipController.TakeDamage(hazardDamage);
                     hazardCooldownTimer = hazardCooldown;
                 }
                 

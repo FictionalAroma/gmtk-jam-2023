@@ -40,7 +40,7 @@ public class ShipController : MonoBehaviour,IDamageable
     void Start()
     {
         youloseText.SetActive (false);
-        CurrentHealth = MaxHealth;
+        //CurrentHealth = MaxHealth;
        
         CurrentHealth = MaxHealth;
         skyboxController = FindObjectOfType<SkyboxController>();
@@ -69,8 +69,8 @@ public class ShipController : MonoBehaviour,IDamageable
             {
                 ProcessTranslation(dodgeBotLeft * dodgePower);
             }
-            Debug.Log(direction);
-            Debug.Log(xThrow);
+            //Debug.Log(direction);
+            //Debug.Log(xThrow);
             
         }
         else
@@ -80,17 +80,17 @@ public class ShipController : MonoBehaviour,IDamageable
             
         }
         ProcessRotation();
-        if (CurrentHealth<=0)
+        /*if (CurrentHealth<=0)
         {
             Time.timeScale = 0;
             youloseText.SetActive(true);
-        }
+        }*/
 
     }
 
     void ProcessTranslation(Vector2 vector2Throw)
     {
-        Debug.Log($"Vector2 Throw: {vector2Throw}");
+        //Debug.Log($"Vector2 Throw: {vector2Throw}");
         xThrow = vector2Throw.x;
         yThrow = vector2Throw.y;
 
@@ -108,7 +108,7 @@ public class ShipController : MonoBehaviour,IDamageable
         float pitch = transform.position.y * positionPitchFactor*System.Convert.ToInt32(isDodging) + yThrow * ControlPitchFactor*Time.deltaTime;
         float yaw = transform.position.x * controlYawFactor* System.Convert.ToInt32(isDodging);
         float roll = transform.position.x * positionRollFactor* System.Convert.ToInt32(isDodging) + xThrow;
-        Debug.Log($"Pitch :{pitch}, Yaw : {yaw}, Roll: {roll}");
+        //Debug.Log($"Pitch :{pitch}, Yaw : {yaw}, Roll: {roll}");
         transform.rotation = Quaternion.Euler(pitch, yaw, roll);
     }
 

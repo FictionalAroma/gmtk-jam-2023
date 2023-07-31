@@ -2,20 +2,18 @@ using UnityEngine;
 
 public class Grappling : MonoBehaviour
 {
-	
-
     // Start is called before the first frame update
     public float grappleHookPower;
     public float grappleHookPull;
     
     [SerializeField] private LineRenderer lineRenderer;
     private PlayerController _player;
-	Joint _joint;
+	
 	private Rigidbody _rb;
-	private Collider _collider;
+	
 	[SerializeField] private GameObject[] hands;
 	[SerializeField] private GameObject currentHand;
-	public bool IsConnected => _joint != null;
+	
 
 	[SerializeField] private Vocal grapplinghookSFX;
 	
@@ -24,7 +22,7 @@ public class Grappling : MonoBehaviour
     private void Awake()
 	{
 		
-		_collider = GetComponent<Collider>();
+		
 	}
 
 	private void Start()
@@ -46,16 +44,25 @@ public class Grappling : MonoBehaviour
 		
 		this.gameObject.SetActive(true);
 		grapplinghookSFX.PlaySound();
-		
 		currentHand = ChooseClosestHand(hookHit);
-        currentHand.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        _rb = currentHand.GetComponent<Rigidbody>();
-        Disconnect();
-        _joint = currentHand.AddComponent<FixedJoint>();
-        _rb.AddForce(direction * grappleHookPower, ForceMode.Impulse);
-		_collider.enabled = true;
+		currentHand.GetComponent<Hooks>().Disconnect();
+		currentHand.GetComponent<Hooks>().ShootHook(angle,direction,grappleHookPower, ForceMode.Impulse);
+		
 		
 	}
+	public void ShootHookRayCast(Vector3 raycastDirection)
+	{
+        RaycastHit hookHit;
+        Debug.DrawRay(this.transform.position, raycastDirection, Color.green, 2f);
+        if (Physics.Raycast(this.transform.position, raycastDirection, out hookHit, Mathf.Infinity, LayerMask.NameToLayer("ShipWalls")))
+        {
+            float angle = Mathf.Atan2(raycastDirection.y, raycastDirection.x) * Mathf.Rad2Deg;
+
+            Shoot(hookHit.point, angle, raycastDirection);
+
+            _player.isGrappleActive = true;
+        }
+    }
 	
 	void Update() 
 	{
@@ -70,25 +77,26 @@ public class Grappling : MonoBehaviour
 	{
 		lineRenderer.SetPosition(0, Vector3.zero);
 		lineRenderer.SetPosition(1, Vector3.zero);
-		Disconnect();
+		foreach(GameObject hand in hands)
+		{
+            hand.GetComponent<Hooks>().Disconnect();
+        }
+		
 	}
-    public void Connect(Rigidbody actor)
-    {
-        
-        _joint.connectedBody = actor;
-        _joint.connectedMassScale = 0f;
-
-		_collider.enabled = false;
-
-    }
+    
 	public void StopGrappling()
-	{
+    {
 		// Reset the grapple
-		_rb.velocity = Vector3.zero;
-		currentHand.transform.position = _player.transform.position;
-		grapplinghookSFX.StopSound();
+		foreach (GameObject hand in hands)
+		{
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+            transform.position = _player.transform.position;
+            grapplinghookSFX.StopSound();
+			transform.parent = _player.transform;
+        }
+		
 		// Re-parent the hook immediately if it's not in use
-		currentHand.transform.parent = _player.transform;
+		
 
 		// Remove the line
 		ClearLine();
@@ -96,21 +104,9 @@ public class Grappling : MonoBehaviour
 		this.gameObject.SetActive(false);
 	}
 
-	public void Disconnect()
-    {
-		Destroy(_joint);
-		_joint = null ;
-        
-		
-    }
+
 	
-    private void OnCollisionEnter(Collision collision)
-	{
-		if (collision.gameObject.CompareTag("Hookable"))
-		{
-			Connect(collision.gameObject.GetComponent<Rigidbody>());
-		}
-	}
+    
 
 	private GameObject ChooseClosestHand(Vector3 hookPosition)
 	{
