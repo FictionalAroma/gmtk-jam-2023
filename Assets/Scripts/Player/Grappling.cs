@@ -89,10 +89,13 @@ public class Grappling : MonoBehaviour
 		// Reset the grapple
 		foreach (GameObject hand in hands)
 		{
-            GetComponent<Rigidbody>().velocity = Vector3.zero;
-            transform.position = _player.transform.position;
+            //hand.transform.parent = _player.transform;
+            hand.GetComponent<Rigidbody>().velocity = Vector3.zero;
+			Debug.Log(hand.name + " hand position " + hand.transform.position+" Needs to go to "+_player.transform.position);
+			hand.transform.position = Vector3.zero;//_player.transform.position;
+			Debug.Log(hand.name + " hand updated position " + hand.transform.position);
             grapplinghookSFX.StopSound();
-			transform.parent = _player.transform;
+			
         }
 		
 		// Re-parent the hook immediately if it's not in use
@@ -105,38 +108,36 @@ public class Grappling : MonoBehaviour
 	}
 
 
-	
-    
 
-	private GameObject ChooseClosestHand(Vector3 hookPosition)
-	{
-		float distance1 = 0;
-		float distance2 = 0;
+    private GameObject ChooseClosestHand(Vector3 hookPosition)
+    {
+        GameObject closestHand = null;
+        float closestDistance = float.MaxValue;
+		//Debug.Log("Hook is at " + hookPosition);
+        foreach (GameObject hand in hands)
+        {
+            float distance = Vector3.Distance(hookPosition, hand.transform.position);
+			
+			//Debug.Log("hand "+hand +" is at "+hand.transform.position+ " and is "+distance+ " away");
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestHand = hand;
+            }
+        }
 
-		foreach (GameObject hand in hands)
-		{
-			float distance = Vector3.Distance(hookPosition, hand.transform.position);
-			if (hands[0])
-			{
-				distance1 = distance;
-			}
-			else
-			{
-				distance2 = distance;
-			}
-		}
+        if (closestHand != null)
+        {
+            Debug.Log("Closest Hand: " + closestHand.name);
+        }
+        else
+        {
+            Debug.Log("No hands found.");
+        }
 
-		if (distance1>distance2)
-		{
-			Debug.Log(hands[0]);
-			return hands[0];
-		}
-		else
-		{
-			Debug.Log(hands[1]);
-			return hands[1];
-		}
-	}
+        return closestHand;
+    }
 
-   
+
+
 }

@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Hooks : MonoBehaviour
 {
     public bool IsConnected => _joint != null;
-    Joint _joint;
-    private Collider _collider;
-    PlayerController _playerController;
-    Grappling grappling;
+    [SerializeField]Joint _joint;
+    [SerializeField]private Collider _collider;
+    [SerializeField] PlayerController _playerController;
+    [SerializeField]Grappling grappling;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -17,8 +18,8 @@ public class Hooks : MonoBehaviour
     }
     void Start()
     {
-        grappling = FindObjectOfType<Grappling>();
-        _playerController = GetComponent<PlayerController>();
+        //grappling = FindObjectOfType<Grappling>();
+        //_playerController = GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -29,16 +30,17 @@ public class Hooks : MonoBehaviour
     
     public void ShootHook(float angle, Vector3 direction, float hookshotPower,ForceMode forceMode)
     {
+        this.transform.parent = null;
         this.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        this.gameObject.GetComponent<Rigidbody>().AddForce(direction * grappling.grappleHookPower, ForceMode.Impulse);
-        _joint = this.gameObject.AddComponent<FixedJoint>();
+        this.GetComponent<Rigidbody>().AddForce(direction * grappling.grappleHookPower, ForceMode.Force);
+        //_joint = this.GetComponent<FixedJoint>();
         _collider.enabled = true;
     }
     public void Disconnect()
     {
-        Destroy(_joint);
-        _joint = null;
-
+        //Destroy(_joint);
+        //_joint = null;
+        _joint.connectedBody = null;
 
     }
     public void Connect(Rigidbody actor)

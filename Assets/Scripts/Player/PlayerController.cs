@@ -90,6 +90,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleSecondaryFire(bool shoot)
     {
+        
         if (shoot && !isGrappleActive)
         {
             // Unparent the hook while it is shooting
