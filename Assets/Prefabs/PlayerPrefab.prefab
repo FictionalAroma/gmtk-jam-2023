@@ -189,7 +189,7 @@ Transform:
   m_GameObject: {fileID: 1898181731167406620}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -1, z: -0.000000037748947, w: 0}
-  m_LocalPosition: {x: 6.21, y: 2.37, z: -0.32}
+  m_LocalPosition: {x: 0, y: 2.3699992, z: -0.32}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -308,6 +308,7 @@ MonoBehaviour:
   _joint: {fileID: 3093996216464336809}
   _collider: {fileID: 6647264106397647165}
   _playerController: {fileID: 3090753252314996540}
+  handSocket: {fileID: 0}
   grappling: {fileID: 50097092747728999}
 --- !u!138 &3093996216464336809
 FixedJoint:
@@ -355,7 +356,7 @@ Transform:
   m_GameObject: {fileID: 6864281776575490060}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -1, z: -0.000000037748947, w: 0}
-  m_LocalPosition: {x: 0.56, y: 2.42, z: -0.19}
+  m_LocalPosition: {x: 0.5599999, y: 2.4200003, z: -0.18999998}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -474,6 +475,7 @@ MonoBehaviour:
   _joint: {fileID: 8138313779025738188}
   _collider: {fileID: 6819059522058285288}
   _playerController: {fileID: 3090753252314996540}
+  handSocket: {fileID: 0}
   grappling: {fileID: 50097092747728999}
 --- !u!138 &8138313779025738188
 FixedJoint:
@@ -637,6 +639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ebd2a21b62e2f84aa7d5067ab0bc50e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerController: {fileID: 0}
   inputReader: {fileID: 11400000, guid: 322b219939fe8c04a8e8e42ea860bf52, type: 2}
 --- !u!120 &6150388093335468016
 LineRenderer:
@@ -1129,10 +1132,10 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7047777502661519026, guid: ab9ea88ba71ba9d4584a625a14b69154, type: 3}
       insertIndex: 0
-      addedObject: {fileID: 801220983983435711}
+      addedObject: {fileID: 6923871593666779049}
     - targetCorrespondingSourceObject: {fileID: 7047777502661519026, guid: ab9ea88ba71ba9d4584a625a14b69154, type: 3}
       insertIndex: 1
-      addedObject: {fileID: 6923871593666779049}
+      addedObject: {fileID: 801220983983435711}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6088035471996254757, guid: ab9ea88ba71ba9d4584a625a14b69154, type: 3}
       insertIndex: -1

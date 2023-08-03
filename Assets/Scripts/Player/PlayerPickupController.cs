@@ -7,18 +7,21 @@ namespace Assets.Scripts.Player
 	[RequireComponent(typeof(Rigidbody))]
 	public class PlayerPickupController : InteractableActor
 	{
+		Grappling grappling;
 		private Pickup _currentPickup;
 		public Pickup CurrentPickup => _currentPickup;
-
+		public PlayerController _playerController;
 		[SerializeField] private InputReader inputReader;
 		public Rigidbody RB { get; private set; }
 
 
 		private void Awake()
 		{
+			_playerController = GetComponentInParent<PlayerController>();
 			inputReader.PlayerActionEvent += TryPickupOrDrop;
 			inputReader.PrimaryFireEvent += HandlePrimaryFire;
 			RB = GetComponent<Rigidbody>();
+			grappling = FindObjectOfType<Grappling>();
 		}
 
 		private void TryPickupOrDrop(bool obj)
@@ -72,6 +75,16 @@ namespace Assets.Scripts.Player
 			float angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
 
 			this.transform.SetLocalPositionAndRotation(directionToTarget.normalized, Quaternion.AngleAxis(angle - 90, Vector3.forward));
+			if (this.transform.rotation.eulerAngles.z>0&& this.transform.rotation.eulerAngles.z<180&& _playerController.isGrappleActive == false)
+			{
+				grappling.hands[1].transform.position= this.transform.position;
+				grappling.hands[0].transform.position = grappling.hands[0].GetComponent<Hooks>().handSocket.transform.position;
+			}
+			if (this.transform.rotation.eulerAngles.z>180 )//&& this.transform.rotation.eulerAngles.z>(-180) */&&_playerController.isGrappleActive == false )
+			{
+                grappling.hands[0].transform.position = this.transform.position;
+                grappling.hands[1].transform.position = grappling.hands[0].GetComponent<Hooks>().handSocket.transform.position;
+            }
 			if (_currentPickup != null)
 			{
 				_currentPickup.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);

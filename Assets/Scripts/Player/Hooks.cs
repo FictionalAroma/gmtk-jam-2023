@@ -10,6 +10,7 @@ public class Hooks : MonoBehaviour
     [SerializeField]Joint _joint;
     [SerializeField]private Collider _collider;
     [SerializeField] PlayerController _playerController;
+    public GameObject handSocket; 
     [SerializeField]Grappling grappling;
     // Start is called before the first frame update
     private void Awake()
@@ -25,7 +26,10 @@ public class Hooks : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (!_playerController.isGrappleActive)
+        {
+            transform.position = handSocket.transform.position;
+        }
     }
     
     public void ShootHook(float angle, Vector3 direction, float hookshotPower,ForceMode forceMode)
@@ -45,7 +49,7 @@ public class Hooks : MonoBehaviour
     }
     public void Connect(Rigidbody actor)
     {
-
+        Debug.Log(actor.gameObject);
         _joint.connectedBody = actor;
         _joint.connectedMassScale = 0f;
         _collider.enabled = false;
@@ -54,6 +58,7 @@ public class Hooks : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log(collision.gameObject.name);
         if (collision.gameObject.CompareTag("Hookable"))
         {
             Connect(collision.gameObject.GetComponent<Rigidbody>());

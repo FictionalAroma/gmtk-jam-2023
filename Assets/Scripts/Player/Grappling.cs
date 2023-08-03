@@ -11,7 +11,7 @@ public class Grappling : MonoBehaviour
 	
 	private Rigidbody _rb;
 	
-	[SerializeField] private GameObject[] hands;
+	public GameObject[] hands;
 	[SerializeField] private GameObject currentHand;
 	
 
@@ -43,9 +43,11 @@ public class Grappling : MonoBehaviour
 	{
 		
 		this.gameObject.SetActive(true);
+		
 		grapplinghookSFX.PlaySound();
 		currentHand = ChooseClosestHand(hookHit);
-		currentHand.GetComponent<Hooks>().Disconnect();
+        Debug.Log("Shoot "+currentHand.name);
+        currentHand.GetComponent<Hooks>().Disconnect();
 		currentHand.GetComponent<Hooks>().ShootHook(angle,direction,grappleHookPower, ForceMode.Impulse);
 		
 		
