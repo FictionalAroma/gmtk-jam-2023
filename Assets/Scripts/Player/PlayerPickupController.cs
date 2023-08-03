@@ -78,12 +78,14 @@ namespace Assets.Scripts.Player
 			if (this.transform.rotation.eulerAngles.z>0&& this.transform.rotation.eulerAngles.z<180&& _playerController.isGrappleActive == false)
 			{
 				grappling.hands[1].transform.position= this.transform.position;
-				grappling.hands[0].transform.position = grappling.hands[0].GetComponent<Hooks>().handSocket.transform.position;
-			}
-			if (this.transform.rotation.eulerAngles.z>180 )//&& this.transform.rotation.eulerAngles.z>(-180) */&&_playerController.isGrappleActive == false )
+				grappling.hands[0].transform.position = new Vector3(_playerController.transform.position.x + 1, _playerController.transform.position.y + 0.3f, 0);
+                grappling.hands[1].transform.LookAt(_playerController.aimIndicator.transform.position,Vector3.back);
+            }
+			if (this.transform.rotation.eulerAngles.z>180 &&_playerController.isGrappleActive == false )
 			{
                 grappling.hands[0].transform.position = this.transform.position;
-                grappling.hands[1].transform.position = grappling.hands[0].GetComponent<Hooks>().handSocket.transform.position;
+				grappling.hands[1].transform.position = new Vector3(_playerController.transform.position.x - 1, _playerController.transform.position.y+0.3f, 0);
+				grappling.hands[0].transform.LookAt(_playerController.aimIndicator.transform.position,Vector3.down);
             }
 			if (_currentPickup != null)
 			{

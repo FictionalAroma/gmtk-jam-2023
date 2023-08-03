@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     [Header("Grappling and Tools")]
     [SerializeField] private Grappling grappling;
     private Vocal grapplingHookSFX;
-    [SerializeField] GameObject aimIndicator;
+    public GameObject aimIndicator;
     [SerializeField] private float grappleRetractionSpeed = 10f;
     [SerializeField] private float grappleRetractionDelay = .2f;
 	[SerializeField] private PlayerPickupController handController;

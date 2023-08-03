@@ -10,7 +10,7 @@ public class Hooks : MonoBehaviour
     [SerializeField]Joint _joint;
     [SerializeField]private Collider _collider;
     [SerializeField] PlayerController _playerController;
-    public GameObject handSocket; 
+    //public GameObject handSocket; 
     [SerializeField]Grappling grappling;
     // Start is called before the first frame update
     private void Awake()
@@ -28,7 +28,7 @@ public class Hooks : MonoBehaviour
     {
         if (!_playerController.isGrappleActive)
         {
-            transform.position = handSocket.transform.position;
+            //transform.position = handSocket.transform.position;
         }
     }
     
