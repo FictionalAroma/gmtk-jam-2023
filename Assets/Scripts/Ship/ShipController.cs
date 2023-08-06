@@ -28,7 +28,7 @@ public class ShipController : MonoBehaviour,IDamageable
     [SerializeField] private PowerPoint shieldPower;
 	[SerializeField] private PowerPoint weaponPower;
 	[SerializeField] private PowerPoint thrustPower;
-    [SerializeField] GameObject youloseText;
+    [SerializeField] GameObject captain;
 
     private Vocal shipSFX;
 
@@ -39,7 +39,7 @@ public class ShipController : MonoBehaviour,IDamageable
     // Start is called before the first frame update
     void Start()
     {
-        youloseText.SetActive (false);
+        //youloseText.SetActive (false);
         //CurrentHealth = MaxHealth;
        
         CurrentHealth = MaxHealth;

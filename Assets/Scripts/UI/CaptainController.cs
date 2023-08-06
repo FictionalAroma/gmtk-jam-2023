@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CaptainTextController : MonoBehaviour
 {
@@ -12,41 +13,53 @@ public class CaptainTextController : MonoBehaviour
     //public List<string> textWords;
     public string[] dialogues;
     public TextMeshProUGUI dialogueTextDisplay;
+
     public float typingDelay;
     public bool playText;
     public int audioFrequency= 2;
-    [Range(1f,2f)]
+    [SerializeField] Sprite[] captainImages;
+    public Image currentImage;
+    Canvas canvas;
+    [Range(1.3f,2f)]
     public float minPitch;
-    [Range(1f, 2f)]
+    [Range(1.3f, 2f)]
     public float maxPitch;
     private void Start()
     {
+        canvas = GetComponentInChildren<Canvas>();
         captainAudioSource = GetComponent<AudioSource>();
+        canvas.enabled = false;
     }
-    public IEnumerator DisplayText(string text)
+  
+    private void Update()
     {
+        if (playText)
+        {
+            StartCoroutine(CaptainMessage(dialogues[0], captainImages[0]));
+            playText= false;
+        }
+    }
+    public IEnumerator CaptainMessage(string text,Sprite captainImage)
+    {
+        canvas.enabled = true;
         dialogueTextDisplay.text = text;
         dialogueTextDisplay.maxVisibleCharacters = 0;
         foreach (char c in text)
         {
+            
+            currentImage.sprite = captainImage;
             PlayAudioClips(dialogueTextDisplay.maxVisibleCharacters);
             dialogueTextDisplay.maxVisibleCharacters++;
             yield return new WaitForSeconds(typingDelay);
         }
+        canvas.enabled = false;
+
         /*textWords = new List<string>();
         foreach (string s in splittedStringArray)
         {
             textWords.Add(s);
         }*/
-        
-    }
-    private void Update()
-    {
-        if (playText)
-        {
-            StartCoroutine(DisplayText(dialogues[0]));
-            playText = false;
-        }
+
     }
     public void PlayAudioClips(int currentDisplayedCharacterCount)
     {
