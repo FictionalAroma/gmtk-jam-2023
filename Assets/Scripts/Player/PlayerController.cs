@@ -1,4 +1,5 @@
 using Assets.Scripts.Player;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -95,7 +96,7 @@ public class PlayerController : MonoBehaviour
         {
             // Unparent the hook while it is shooting
             //Move all to Grappling
-
+            Debug.Log("Initiate grappling");
             Vector3 direction = (aimIndicator.transform.position - this.transform.position).normalized;
             grappling.ShootHookRayCast(direction);
         }

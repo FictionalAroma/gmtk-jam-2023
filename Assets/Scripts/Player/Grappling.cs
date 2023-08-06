@@ -41,8 +41,8 @@ public class Grappling : MonoBehaviour
 
 	public void Shoot(Vector3 hookHit, float angle, Vector3 direction)
 	{
-		
-		this.gameObject.SetActive(true);
+		Debug.Log("initiate hook hand");
+		//this.gameObject.SetActive(true);
 		
 		grapplinghookSFX.PlaySound();
 		currentHand = ChooseClosestHand(hookHit);
@@ -54,10 +54,12 @@ public class Grappling : MonoBehaviour
 	}
 	public void ShootHookRayCast(Vector3 raycastDirection)
 	{
+        Debug.Log("Raycast");
         RaycastHit hookHit;
         Debug.DrawRay(this.transform.position, raycastDirection, Color.green, 2f);
-        if (Physics.Raycast(this.transform.position, raycastDirection, out hookHit, Mathf.Infinity, LayerMask.NameToLayer("ShipWalls")))
+		if (Physics.Raycast(this.transform.position, raycastDirection, out hookHit, 500f, LayerMask.NameToLayer("ShipWalls")))
         {
+			Debug.Log("hook hit");
             float angle = Mathf.Atan2(raycastDirection.y, raycastDirection.x) * Mathf.Rad2Deg;
 
             Shoot(hookHit.point, angle, raycastDirection);
@@ -93,9 +95,9 @@ public class Grappling : MonoBehaviour
 		{
             //hand.transform.parent = _player.transform;
             hand.GetComponent<Rigidbody>().velocity = Vector3.zero;
-			Debug.Log(hand.name + " hand position " + hand.transform.position+" Needs to go to "+_player.transform.position);
+			//Debug.Log(hand.name + " hand position " + hand.transform.position+" Needs to go to "+_player.transform.position);
 			hand.transform.position = Vector3.zero;//_player.transform.position;
-			Debug.Log(hand.name + " hand updated position " + hand.transform.position);
+			//Debug.Log(hand.name + " hand updated position " + hand.transform.position);
             grapplinghookSFX.StopSound();
 			
         }
@@ -106,7 +108,7 @@ public class Grappling : MonoBehaviour
 		// Remove the line
 		ClearLine();
 
-		this.gameObject.SetActive(false);
+		//this.gameObject.SetActive(false);
 	}
 
 

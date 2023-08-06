@@ -34,6 +34,7 @@ public class Hooks : MonoBehaviour
     
     public void ShootHook(float angle, Vector3 direction, float hookshotPower,ForceMode forceMode)
     {
+        Debug.Log("Shooting hook");        
         this.transform.parent = null;
         this.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         this.GetComponent<Rigidbody>().AddForce(direction * grappling.grappleHookPower, ForceMode.Force);
