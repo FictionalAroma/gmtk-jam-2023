@@ -7,7 +7,7 @@ namespace Assets.Scripts.Player
 	[RequireComponent(typeof(Rigidbody))]
 	public class PlayerPickupController : InteractableActor
 	{
-		Grappling grappling;
+		GrapplingController grappling;
 		private Pickup _currentPickup;
 		public Pickup CurrentPickup => _currentPickup;
 		public PlayerController _playerController;
@@ -21,7 +21,7 @@ namespace Assets.Scripts.Player
 			inputReader.PlayerActionEvent += TryPickupOrDrop;
 			inputReader.PrimaryFireEvent += HandlePrimaryFire;
 			RB = GetComponent<Rigidbody>();
-			grappling = FindObjectOfType<Grappling>();
+			grappling = FindObjectOfType<GrapplingController>();
 		}
 
 		private void TryPickupOrDrop(bool obj)
@@ -75,19 +75,28 @@ namespace Assets.Scripts.Player
 			float angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
 
 			this.transform.SetLocalPositionAndRotation(directionToTarget.normalized, Quaternion.AngleAxis(angle - 90, Vector3.forward));
-			if (this.transform.rotation.eulerAngles.z>0&& this.transform.rotation.eulerAngles.z<180&& _playerController.isGrappleActive == false)
+			if (this.transform.rotation.eulerAngles.z>0&& this.transform.rotation.eulerAngles.z<180)
 			{
-				grappling.hands[1].transform.position= this.transform.position;
-				grappling.hands[0].transform.position = new Vector3(_playerController.transform.position.x + 1, _playerController.transform.position.y + 0.3f, 0);
-				grappling.hands[0].transform.rotation = Quaternion.Euler(0, 90, 0);
-                grappling.hands[1].transform.LookAt(_playerController.aimIndicator.transform.position,Vector3.up);
+				if (grappling.hookHands[1].GetComponent<GrappleHook>().hookIsFree)
+				{
+                    grappling.hookHands[1].transform.position = this.transform.position;
+                    grappling.hookHands[1].transform.LookAt(_playerController.aimIndicator.transform.position, Vector3.up);
+                }
+				grappling.hookHands[0].transform.position = new Vector3(_playerController.transform.position.x + 1, _playerController.transform.position.y + 0.3f, 0);
+				grappling.hookHands[0].transform.rotation = Quaternion.Euler(0, 90, 0);
+                
             }
-			if (this.transform.rotation.eulerAngles.z>180 &&_playerController.isGrappleActive == false )
+			if (this.transform.rotation.eulerAngles.z>180)
 			{
-                grappling.hands[0].transform.position = this.transform.position;
-				grappling.hands[1].transform.position = new Vector3(_playerController.transform.position.x - 1, _playerController.transform.position.y+0.3f, 0);
-                grappling.hands[1].transform.rotation = Quaternion.Euler(0, -90, 0);
-                grappling.hands[0].transform.LookAt(_playerController.aimIndicator.transform.position,Vector3.up);
+				if (grappling.hookHands[0].GetComponent<GrappleHook>().hookIsFree)
+				{
+                    grappling.hookHands[0].transform.position = this.transform.position;
+                    grappling.hookHands[0].transform.LookAt(_playerController.aimIndicator.transform.position, Vector3.up);
+                }
+                
+				grappling.hookHands[1].transform.position = new Vector3(_playerController.transform.position.x - 1, _playerController.transform.position.y+0.3f, 0);
+                grappling.hookHands[1].transform.rotation = Quaternion.Euler(0, -90, 0);
+                
             }
 			if (_currentPickup != null)
 			{

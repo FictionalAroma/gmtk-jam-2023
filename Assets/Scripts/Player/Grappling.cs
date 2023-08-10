@@ -57,7 +57,7 @@ public class Grappling : MonoBehaviour
         Debug.Log("Raycast");
         RaycastHit hookHit;
         Debug.DrawRay(this.transform.position, raycastDirection, Color.green, 2f);
-		if (Physics.Raycast(this.transform.position, raycastDirection, out hookHit, 500f, LayerMask.NameToLayer("ShipWalls")))
+		if (Physics.Raycast(this.transform.position, raycastDirection, out hookHit, Mathf.Infinity))//,LayerMask.NameToLayer("ShipWalls")))
         {
 			Debug.Log("hook hit");
             float angle = Mathf.Atan2(raycastDirection.y, raycastDirection.x) * Mathf.Rad2Deg;

@@ -11,10 +11,11 @@ public class PlayerController : MonoBehaviour
     private Vector2 previousAimInput;
     private Vector2 currentMovementInput;
     private Rigidbody _rb;
-    
+
 
     [Header("Grappling and Tools")]
-    [SerializeField] private Grappling grappling;
+    //[SerializeField] private Grappling grappling;
+    [SerializeField] GrapplingController grappling;
     private Vocal grapplingHookSFX;
     public GameObject aimIndicator;
     [SerializeField] private float grappleRetractionSpeed = 10f;
@@ -54,7 +55,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _camera = Camera.main;
-        grappling.ClearLine();
+        //grappling.ClearLine();
 		grapplingHookSFX = grappling.GetComponent<Vocal>();
         jetpackSFX = grappling.GetComponent<Vocal>();
         if (handController.GetComponent<LineRenderer>() != null)
@@ -92,19 +93,15 @@ public class PlayerController : MonoBehaviour
     private void HandleSecondaryFire(bool shoot)
     {
         
-        if (shoot && !isGrappleActive)
-        {
-            // Unparent the hook while it is shooting
-            //Move all to Grappling
-            Debug.Log("Initiate grappling");
-            Vector3 direction = (aimIndicator.transform.position - this.transform.position).normalized;
-            grappling.ShootHookRayCast(direction);
-        }
-        if (!shoot) 
-        {
-			grappling.StopGrappling();
-			isGrappleActive = false;
-		}
+        
+         // Unparent the hook while it is shooting
+         //Move all to Grappling
+         Debug.Log("Initiate grappling");
+         Vector3 direction = (aimIndicator.transform.position - this.transform.position).normalized;
+         //grappling.ShootHookRayCast(direction);
+         grappling.GetHookPosition(direction);
+         
+        
         
     }
 

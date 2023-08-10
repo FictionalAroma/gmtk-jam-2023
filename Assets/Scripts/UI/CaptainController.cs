@@ -8,22 +8,28 @@ using UnityEngine.UI;
 
 public class CaptainTextController : MonoBehaviour
 {
+    [Header("Properties")]
     AudioSource captainAudioSource;
-    public AudioClip[] dialogueClips;
-    //public List<string> textWords;
-    public string[] dialogues;
-    public TextMeshProUGUI dialogueTextDisplay;
+    Canvas canvas;
 
-    public float typingDelay;
-    public bool playText;
-    public int audioFrequency= 2;
+
+    [Header("Text")]
     [SerializeField] Sprite[] captainImages;
     public Image currentImage;
-    Canvas canvas;
-    [Range(1.3f,2f)]
-    public float minPitch;
-    [Range(1.3f, 2f)]
-    public float maxPitch;
+    [SerializeField] string[] dialogues;
+    [SerializeField] float typingDelay;
+    public TextMeshProUGUI dialogueTextDisplay;
+
+
+    [Header("Dialogue")]
+    public AudioClip[] dialogueClips;
+    public int audioFrequency = 2;
+    [Range(1.3f, 2f)] [SerializeField] float minPitch;
+    [Range(1.3f, 2f)] [SerializeField] float maxPitch;
+    
+    
+    public bool playText;
+    
     private void Start()
     {
         canvas = GetComponentInChildren<Canvas>();
