@@ -42,7 +42,7 @@ namespace Assets.Scripts.Enviroment
 
 		public override bool Action(InteractableActor actor)
 		{
-			var pc = actor as PlayerPickupController;
+			var pc = actor as PlayerHandsController;
 			if (pc != null)
 			{
 				var cell = pc.CurrentPickup as PowerCell;

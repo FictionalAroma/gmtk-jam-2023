@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Assets.Scripts.Player
 {
 	[RequireComponent(typeof(Rigidbody))]
-	public class PlayerPickupController : InteractableActor
+	public class PlayerHandsController : InteractableActor
 	{
 		GrapplingController grappling;
 		private Pickup _currentPickup;

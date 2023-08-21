@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     public GameObject aimIndicator;
     [SerializeField] private float grappleRetractionSpeed = 10f;
     [SerializeField] private float grappleRetractionDelay = .2f;
-	[SerializeField] private PlayerPickupController handController;
+	[SerializeField] private PlayerHandsController handController;
     public bool isGrappleActive;
 
     [Header("Jetpack")]

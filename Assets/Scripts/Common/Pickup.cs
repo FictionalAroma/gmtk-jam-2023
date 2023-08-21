@@ -21,7 +21,7 @@ namespace Common
 		public override bool Action(InteractableActor actor)
 		{
 			if (_joint != null) return false;
-			var pc = actor as PlayerPickupController;
+			var pc = actor as PlayerHandsController;
 			if (pc != null)
 			{
 				pc.Pickup(this);
